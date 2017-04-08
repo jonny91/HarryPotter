@@ -8,24 +8,40 @@
 unsigned int step = 0;
 
 sbit INPUT_DOOR_00 = P0^0; //开始的电磁锁门
-sbit OUTPUT_DOOR_01 = P0^1; //竖琴正确 打开的门
-sbit INPUT_LASER_02 = P0^2;//激光输入
-sbit INPUT_LASER_03 = P0^3;//语音输入
-sbit OUTPUT_DOOR_04 = P0^4;//下个房间的门
+sbit OUTPUT_DOOR_34 = P3^4; //竖琴正确 打开的门
+sbit INPUT_LASER_01 = P0^1;//激光输入
+sbit INPUT_LASER_06 = P0^6;//语音输入
+sbit OUTPUT_DOOR_35 = P3^5;//下个房间的门
 
-sbit INPUT_HARP_0 = P1^0; //do
-sbit INPUT_HARP_1 = P1^1;	//re
-sbit INPUT_HARP_2 = P1^2;	//mi
-sbit INPUT_HARP_3 = P1^3;	//fa
-sbit INPUT_HARP_4 = P1^4;	//so
-sbit INPUT_HARP_5 = P1^5;	//la
-sbit INPUT_HARP_6 = P1^6;	//si
+sbit INPUT_HARP_0 = P0^2; //do
+sbit INPUT_HARP_1 = P0^3;	//re
+sbit INPUT_HARP_2 = P0^4;	//mi
+sbit INPUT_HARP_3 = P4^3;	//fa
+sbit INPUT_HARP_4 = P4^4;	//so
+sbit INPUT_HARP_5 = P4^5;	//la
+sbit INPUT_HARP_6 = P4^6;	//si
 
 void start();
 void setStep(int s);
 void harp();
 void laser_and_say();
 
+void init()
+{
+	INPUT_DOOR_00 = 0;
+	OUTPUT_DOOR_34 = 1;
+	INPUT_LASER_01 = 0;
+	INPUT_LASER_06 = 0;
+	OUTPUT_DOOR_35 = 1;
+	
+	INPUT_HARP_0 = 0;
+	INPUT_HARP_1 = 0;
+	INPUT_HARP_2 = 0;
+	INPUT_HARP_3 = 0;
+	INPUT_HARP_4 = 0;
+	INPUT_HARP_5 = 0;
+	INPUT_HARP_6 = 0;
+}
 void main()
 {
 	init();
@@ -147,8 +163,8 @@ void harp()
 			{
 				playMp3(MUSIC_HARP_CORRECT);
 				setStep(2);
-				
-				OUTPUT_DOOR_01 = 1;
+				//断电开门
+				OUTPUT_DOOR_34 = 0;
 				return;
 			}
 		}
@@ -164,9 +180,9 @@ void laser_and_say()
 {
 	while(1)
 	{
-		if((INPUT_LASER_03 == 1)&& (INPUT_LASER_02 == 1))
+		if((INPUT_LASER_01 == 1)&& (INPUT_LASER_06 == 1))
 		{
-			OUTPUT_DOOR_04 = 1;
+			OUTPUT_DOOR_35 = 0;
 			playMp3(MUSIC_LASER_SAY_CORRECT);
 			setStep(3);		
 			return;
