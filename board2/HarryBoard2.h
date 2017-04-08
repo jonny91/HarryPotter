@@ -1,0 +1,2 @@
+code int MUSIC_INDOOR = 0x01;
+code int MUSIC_HANDINHAND_CORRECT = 0x02;
