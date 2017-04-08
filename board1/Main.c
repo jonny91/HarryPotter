@@ -5,8 +5,6 @@
 #include "mp3.h"
 
 
-unsigned int step = 0;
-
 sbit INPUT_DOOR_00 = P0^0; //开始的电磁锁门
 sbit OUTPUT_DOOR_34 = P3^4; //竖琴正确 打开的门
 sbit OUTPUT_DOOR_37 = P3^7;//竖琴正确 打开柜门
@@ -107,7 +105,7 @@ void fiveStatue()
 {
 	if(INPUT_FIVE_STATUE == 1)
 	{
-		delay(500);
+		delay_ms(500);
 		if(INPUT_FIVE_STATUE == 1)
 		{
 			playMp3(FIVE_STATUE_CORRECT);
@@ -121,7 +119,7 @@ void room1Say()
 {
 	if(INPUT_ROOM_1_SAY == 1)
 	{
-		delay(500);
+		delay_ms(500);
 		if(INPUT_ROOM_1_SAY == 1)
 		{
 			playMp3(ROOM_1_SAY_CORRECT);
@@ -243,9 +241,4 @@ void laser_and_say()
 			return;
 		}
 	}
-}
-
-void setStep(int s)
-{
-	step = s;
 }
