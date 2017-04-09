@@ -116,7 +116,7 @@ void main()
 
 void handInHand()
 {
-	if(INPUT_00 == 0)
+	if(INPUT_00 == 1)
 	{
 		delay_ms(500);
 		if(INPUT_00 == 1)
@@ -140,7 +140,7 @@ void stone()
 
 void say()
 {
-	if(INPUT_SAY == 0)
+	if(INPUT_SAY == 1)
 	{
 		delay_ms(50);
 		if(INPUT_SAY == 1)
@@ -153,7 +153,7 @@ void say()
 
 void medicine()
 {
-	if(INPUT_MEDICINE == 0)
+	if(INPUT_MEDICINE == 1)
 	{
 		delay_ms(50);
 		if(INPUT_MEDICINE == 1)
