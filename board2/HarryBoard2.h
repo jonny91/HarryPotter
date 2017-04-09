@@ -1,2 +1,7 @@
 code int MUSIC_INDOOR = 0x01;
 code int MUSIC_HANDINHAND_CORRECT = 0x02;
+code int MUSIC_CHESS = 0x03;
+code int MUSIC_MEDICINE_CORRECT = 0x04;
+code int MUSIC_GET_STONE = 0X05;
+
+code int CHESS_TIME = 200;

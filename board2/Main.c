@@ -6,25 +6,91 @@
 
 void handInHand();
 void chess();
+void timer0();
+void medicine();
+void say();
+void stone();
 
-sbit INPUT_06 = P0^6; //手牵手的输入
+sbit INPUT_00 = P0^0; //手牵手的输入
 sbit OUTPUT_10 = P1^0;//手牵手正确之后输出 继电器柜门和激光切换
+
+sbit chess_0 = P4^4;
+sbit chess_1 = P4^5;
+sbit chess_2 = P4^1;
+sbit chess_3 = P4^6;
+sbit chess_4 = P0^7;
+sbit chess_5 = P0^6;
+sbit chess_6 = P0^5;
+sbit chess_7 = P0^4;
+
+sbit chess_light_0 = P4^0;
+sbit chess_light_1 = P2^0;
+sbit chess_light_2 = P2^1;
+sbit chess_light_3 = P2^2;
+sbit chess_light_4 = P2^3;
+sbit chess_light_5 = P2^4;
+sbit chess_light_6 = P2^5;
+sbit chess_light_7 = P2^6;
+
+sbit OUTPUT_ROOM4 = P4^2;
+sbit INPUT_MEDICINE = P1^1;
+//继电器接GND 触发了的时候 接通GND
+sbit OUTPUT_MEDICINE = P1^2;
+sbit INPUT_SAY = P1^3;
+sbit OUTPUT_SAY_CORRECT = P1^4;
+//拿掉魔法石
+sbit INPUT_STONE = P0^2;
+//最后的门
+sbit OUTPUT_LAST_DOOR = P1^5;
+
+int i = 0;
+int chessStep = 0;
 
 void init()
 {
-	INPUT_06 = 0;
+	INPUT_00 = 0;
 	OUTPUT_10 = 1;
+	
+	chess_0 = 0;
+	chess_1 = 0;
+	chess_2 = 0;
+	chess_3 = 0;
+	chess_4 = 0;
+	chess_5 = 0;
+	chess_6 = 0;
+	chess_7 = 0;
+	
+	chess_light_0 = 0;
+	chess_light_1 = 0;
+	chess_light_2 = 0;
+	chess_light_3 = 0;
+	chess_light_4 = 0;
+	chess_light_5 = 0;
+	chess_light_6 = 0;
+	chess_light_7 = 0;
+	
+	OUTPUT_ROOM4 = 1;
+	INPUT_MEDICINE = 0;
+	OUTPUT_MEDICINE = 0;
+	INPUT_SAY = 0;
+	OUTPUT_SAY_CORRECT = 1;
+	INPUT_STONE = 0;
+	OUTPUT_LAST_DOOR = 1;
 }
 
 void main()
 {
+	delay_ms(500);
 	init();
 	uart_init();
 	mp3_init();
-	
+	timer0();
+	//定时器暂停
+	ET0 = 0;
 	delay_ms(5000);
 	playMp3(MUSIC_INDOOR);
 	
+	step = 1;
 	while(1)
 	{
 		switch(step)
@@ -35,16 +101,25 @@ void main()
 			case 1:
 				chess();
 				break;
+			case 2:
+				medicine();
+				break;
+			case 3:
+				say();
+				break;
+			case 4:
+				stone();
+				break;
 		}
 	}
 }
 
 void handInHand()
 {
-	if(INPUT_06 == 1)
+	if(INPUT_00 == 0)
 	{
 		delay_ms(500);
-		if(INPUT_06 == 1)
+		if(INPUT_00 == 1)
 		{
 			OUTPUT_10 = 0;
 			playMp3(MUSIC_HANDINHAND_CORRECT);
@@ -53,7 +128,186 @@ void handInHand()
 	}
 }
 
+void stone()
+{
+	if(INPUT_STONE == 1)
+	{
+		playMp3(MUSIC_GET_STONE);
+		OUTPUT_LAST_DOOR = 0;
+		setStep(5);
+	}
+}
+
+void say()
+{
+	if(INPUT_SAY == 0)
+	{
+		delay_ms(50);
+		if(INPUT_SAY == 1)
+		{
+			OUTPUT_SAY_CORRECT = 0;
+			setStep(4);
+		}
+	}
+}
+
+void medicine()
+{
+	if(INPUT_MEDICINE == 0)
+	{
+		delay_ms(50);
+		if(INPUT_MEDICINE == 1)
+		{
+			setStep(3);
+			OUTPUT_MEDICINE = 1;
+			playMp3(MUSIC_MEDICINE_CORRECT);
+		}
+	}
+}
+
+void chessShineLight()
+{
+	ET0 = 0;
+	
+	delay_ms(1000);
+	chess_light_1 = 1;
+	delay_ms(1000);
+	chess_light_1 = 0;
+	
+	ET0 = 1;
+	i = CHESS_TIME;		
+}
+
 void chess()
 {
-	
+	chessShineLight();
+	while(1)
+	{
+		switch(chessStep)
+		{
+			case 0:
+				if(chess_0 == 0)
+				{
+					delay_ms(50);
+					if(chess_0 == 1)
+					{
+						chessStep = 1;
+						i = CHESS_TIME;	
+					}
+				}
+				break;
+			case 1:
+				if(chess_1 == 0)
+				{
+					delay_ms(50);
+					if(chess_1 == 1)
+					{
+						chessStep = 2;
+						i = CHESS_TIME;	
+					}
+				}
+				break;
+			case 2:
+				if(chess_2 == 0)
+				{
+					delay_ms(50);
+					if(chess_2 == 1)
+					{
+						chessStep = 3;
+						i = CHESS_TIME;	
+					}
+				}
+				break;
+			case 3:
+				if(chess_3 == 0)
+				{
+					delay_ms(50);
+					if(chess_3 == 1)
+					{
+						chessStep = 4;
+						i = CHESS_TIME;	
+					}
+				}
+				break;
+			case 4:
+				if(chess_4 == 0)
+				{
+					delay_ms(50);
+					if(chess_4 == 1)
+					{
+						chessStep = 5;
+						i = CHESS_TIME;		
+					}
+				}
+				break;
+			case 5:
+				if(chess_5 == 0)
+				{
+					delay_ms(50);
+					if(chess_5 == 1)
+					{
+						chessStep = 6;
+						i = CHESS_TIME;		
+					}
+				}
+				break;
+			case 6:
+				if(chess_6 == 0)
+				{
+					delay_ms(50);
+					if(chess_6 == 1)
+					{
+						chessStep = 7;
+						i = CHESS_TIME;	
+					}
+				}
+				break;
+			case 7:
+				if(chess_7 == 0)
+				{
+					delay_ms(50);
+					if(chess_7 == 1)
+					{
+						setStep(2);
+						ET0 = 0;
+						playMp3(MUSIC_CHESS);
+						//开第四个房间的门
+						OUTPUT_ROOM4 = 0;
+						
+						return;
+					}
+				}
+				break;
+		}
+	}
+}
+
+void Timer_Routine(void) interrupt 1
+{
+	TL0 = 0x00;		//设置定时初值
+	TH0 = 0x4C;		//设置定时初值
+
+    i--;
+
+    if(i == 0)
+	{
+		i = CHESS_TIME;		
+		chessStep = 0;
+		chessShineLight();
+    }        
+}
+
+
+void timer0()
+{
+	//10秒
+    i = CHESS_TIME;	
+
+	TMOD = 0x01; //16位定时器
+	TL0 = 0x00;		//设置定时初值
+	TH0 = 0x4C;		//设置定时初值
+	ET0 = 1; //允许T0中断
+    EA  = 1; //开放中断
+    TR0 = 1;
+
 }
