@@ -8,7 +8,6 @@
 sbit INPUT_DOOR_00 = P0^0; //开始的电磁锁门
 sbit OUTPUT_DOOR_34 = P3^4; //竖琴正确 打开的门
 sbit OUTPUT_DOOR_37 = P3^7;//竖琴正确 打开柜门
-sbit INPUT_LASER_01 = P0^1;//激光输入
 sbit INPUT_LASER_06 = P0^6;//语音输入
 sbit OUTPUT_DOOR_35 = P3^5;//第三个房间
 
@@ -20,7 +19,7 @@ sbit INPUT_HARP_4 = P4^4;	//so
 sbit INPUT_HARP_5 = P4^5;	//la
 sbit INPUT_HARP_6 = P4^6;	//si
 
-sbit INPUT_FIVE_STATUE = P4^7;
+sbit INPUT_FIVE_STATUE = P4^7; //雕像放对了
 sbit OUTPUT_FIVE_STATUE_DOOR = P3^6;//雕像放对了的柜门 
 
 sbit INPUT_ROOM_1_SAY = P4^1;//第一个房间说话输入对错
@@ -41,7 +40,6 @@ void init()
 	INPUT_DOOR_00 = 0;
 	OUTPUT_DOOR_34 = 1;
 	OUTPUT_DOOR_37 = 1;
-	INPUT_LASER_01 = 0;
 	INPUT_LASER_06 = 0;
 	OUTPUT_DOOR_35 = 1;
 	
@@ -52,7 +50,7 @@ void init()
 	INPUT_HARP_4 = 0;
 	INPUT_HARP_5 = 0;
 	INPUT_HARP_6 = 0;
-	
+
 	INPUT_FIVE_STATUE = 0;
 	OUTPUT_FIVE_STATUE_DOOR = 1;
 	INPUT_ROOM_1_SAY = 0;
@@ -232,11 +230,11 @@ void laser_and_say()
 {
 	while(1)
 	{
-		if((INPUT_LASER_01 == 1)&& (INPUT_LASER_06 == 1))
+		if(INPUT_LASER_06 == 1)
 		{
 			OUTPUT_DOOR_35 = 0;
 			playMp3(MUSIC_LASER_SAY_CORRECT);
-			GND_BOARD2 = 1;//下一块板子通电
+			GND_BOARD2 = 1;//下一块板子信号
 			setStep(5);
 			return;
 		}
