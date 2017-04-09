@@ -28,6 +28,8 @@ sbit OUTPUT_ROOM2_DOOR = P1^0;//第二个房间的房门
 
 sbit GND_BOARD2 = P1^1; //第二块板子的电源
 
+sbit OUTPUT_HARP_SWITCH = P1^2; //竖琴的开关
+
 void start();
 void setStep(int s);
 void harp();
@@ -57,6 +59,7 @@ void init()
 	OUTPUT_ROOM2_DOOR = 1;
 	
 	GND_BOARD2 = 0;
+	OUTPUT_HARP_SWITCH = 0;
 }
 void main()
 {
@@ -78,9 +81,11 @@ void main()
 				room1Say();
 				break;
 			case 3://弹竖琴		
+				OUTPUT_HARP_SWITCH = 1;
 				harp();
 				break;
 			case 4: //激光语音
+				OUTPUT_HARP_SWITCH = 0;
 				laser_and_say();
 				break;
 			case 5:
