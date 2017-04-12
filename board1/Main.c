@@ -26,7 +26,7 @@ sbit INPUT_ROOM_1_SAY = P4^1;//第一个房间说话输入对错
 
 sbit OUTPUT_ROOM2_DOOR = P1^0;//第二个房间的房门
 
-sbit GND_BOARD2 = P1^1; //第二块板子的电源
+sbit SIG_BOARD2 = P1^1; //第二块板子的电源
 
 sbit OUTPUT_HARP_SWITCH = P1^2; //竖琴的开关
 
@@ -58,7 +58,7 @@ void init()
 	INPUT_ROOM_1_SAY = 0;
 	OUTPUT_ROOM2_DOOR = 1;
 	
-	GND_BOARD2 = 0;
+	SIG_BOARD2 = 0;
 	OUTPUT_HARP_SWITCH = 0;
 }
 void main()
@@ -85,10 +85,10 @@ void main()
 				harp();
 				break;
 			case 4: //激光语音
-				OUTPUT_HARP_SWITCH = 0;
 				laser_and_say();
 				break;
 			case 5:
+				OUTPUT_HARP_SWITCH = 0;
 				break;
 		}
 	}
@@ -121,14 +121,11 @@ void fiveStatue()
 void room1Say()
 {
 	if(INPUT_ROOM_1_SAY == 1)
-	{
-		delay_ms(500);
-		if(INPUT_ROOM_1_SAY == 1)
-		{
-			playMp3(ROOM_1_SAY_CORRECT);
-			OUTPUT_ROOM2_DOOR = 0;
-			setStep(3);	
-		}
+	{		
+		playMp3(ROOM_1_SAY_CORRECT);
+		OUTPUT_ROOM2_DOOR = 0;
+		setStep(3);	
+	
 	}
 }
 void harp()
@@ -227,6 +224,7 @@ void harp()
 		{
 			harpStep = 0;
 			playMp3(MUSIC_HARP_ERROR);
+			delay_ms(5000);
 		}
 	}
 }
@@ -239,7 +237,7 @@ void laser_and_say()
 		{
 			OUTPUT_DOOR_35 = 0;
 			playMp3(MUSIC_LASER_SAY_CORRECT);
-			GND_BOARD2 = 1;//下一块板子信号
+			SIG_BOARD2 = 1;//下一块板子信号
 			setStep(5);
 			return;
 		}

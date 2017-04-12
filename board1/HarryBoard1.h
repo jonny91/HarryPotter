@@ -20,4 +20,4 @@ code char SO = '5';
 code char LA = '6';
 code char SI = '7';
 
-code char HARP_ANSWER[] = {'0','1','1','3','4','2','3','7'};
+code char HARP_ANSWER[] = {'0','1','2','3','4','5','6','7'};
