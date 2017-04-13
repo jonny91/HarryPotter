@@ -1,34 +1,30 @@
-#include <STC12C5A60S2.H>
+#include <STC89C5xRC.H>
 #include "HarryBoard1.h"
 #include "BackRoom.h"
 #include "uart.h"
 #include "mp3.h"
 
+sbit INPUT_DOOR_00 = P0^0;	//开始的电磁锁门
 
-sbit INPUT_DOOR_00 = P0^0; //开始的电磁锁门
-sbit OUTPUT_DOOR_34 = P3^4; //竖琴正确 打开的门
-sbit OUTPUT_DOOR_37 = P3^7;//竖琴正确 打开柜门
-sbit INPUT_LASER_06 = P0^6;//语音输入
-sbit OUTPUT_DOOR_35 = P3^5;//第三个房间
+sbit INPUT_FIVE_STATUE = P0^1; //雕像放对了
+sbit OUTPUT_FIVE_STATUE_DOOR = P0^2;//雕像放对了的柜门 
+sbit INPUT_ROOM_1_SAY = P0^3;//第一个房间说话输入对错
+sbit OUTPUT_ROOM2_DOOR = P0^4;//第二个房间的房门
 
-sbit INPUT_HARP_0 = P0^2; //do
-sbit INPUT_HARP_1 = P0^3;	//re
-sbit INPUT_HARP_2 = P0^4;	//mi
-sbit INPUT_HARP_3 = P4^3;	//fa
-sbit INPUT_HARP_4 = P4^4;	//so
-sbit INPUT_HARP_5 = P4^5;	//la
-sbit INPUT_HARP_6 = P4^6;	//si
+sbit OUTPUT_HARP_SWITCH = P1^7; //竖琴的开关
+sbit INPUT_HARP_0 = P1^0;	//do
+sbit INPUT_HARP_1 = P1^1;	//re
+sbit INPUT_HARP_2 = P1^2;	//mi
+sbit INPUT_HARP_3 = P1^3;	//fa
+sbit INPUT_HARP_4 = P1^4;	//so
+sbit INPUT_HARP_5 = P1^5;	//la
+sbit INPUT_HARP_6 = P1^6;	//si
 
-sbit INPUT_FIVE_STATUE = P4^7; //雕像放对了
-sbit OUTPUT_FIVE_STATUE_DOOR = P3^6;//雕像放对了的柜门 
-
-sbit INPUT_ROOM_1_SAY = P4^1;//第一个房间说话输入对错
-
-sbit OUTPUT_ROOM2_DOOR = P1^0;//第二个房间的房门
-
-sbit SIG_BOARD2 = P1^1; //第二块板子的电源
-
-sbit OUTPUT_HARP_SWITCH = P1^2; //竖琴的开关
+sbit OUTPUT_DOOR_34 = P2^0;	//竖琴正确 打开的门
+sbit OUTPUT_DOOR_37 = P2^1;	//竖琴正确 打开柜门
+sbit INPUT_LASER_06 = P2^3;	//语音输入
+sbit OUTPUT_DOOR_35 = P2^4;	//第三个房间
+sbit OUTPUT_SIG_BOARD2 = P2^5; //第二块板子的电源b
 
 void start();
 void setStep(int s);
@@ -58,7 +54,7 @@ void init()
 	INPUT_ROOM_1_SAY = 0;
 	OUTPUT_ROOM2_DOOR = 1;
 	
-	SIG_BOARD2 = 0;
+	OUTPUT_SIG_BOARD2 = 0;
 	OUTPUT_HARP_SWITCH = 0;
 }
 void main()
@@ -67,6 +63,8 @@ void main()
 	uart_init();
 	mp3_init();
 
+	delay_ms(100);								   
+	
 	while(1)
 	{
 		switch(step)
@@ -74,7 +72,7 @@ void main()
 			case 0: //关门
 				start();
 				break;
-			case 1: //4个雕像
+			case 1: //5个雕像
 				fiveStatue();
 				break;
 			case 2: //声控口令
@@ -128,103 +126,91 @@ void room1Say()
 	
 	}
 }
+
 void harp()
 {
-	int answerLength = sizeof(HARP_ANSWER)/sizeof(char) - 1;
+	int answerLength = 10;
 	unsigned int harpStep = 0;
-	char selectHarp = 0;
+	int selectHarp = 0;
+	int lastHarp = 0;
+	int myAnswer[10] = {0,0,0,0,0,0,0,0,0,0};
+    int isCorrect = 0;
+    int i;
+
 	while(1)
 	{
-		if(INPUT_HARP_0 == 0)
+		if(INPUT_HARP_0 == 1)
 		{
-			delay_ms(50);
-			if(INPUT_HARP_0 == 1)
-			{
-				selectHarp = DO;
-				playMp3(MUSIC_DO);
-				harpStep++;
-			}
+			selectHarp = 1;
+			playMp3(MUSIC_DO);
 		}
-		else if(INPUT_HARP_1 == 0)
+		if(INPUT_HARP_1 == 1)
 		{
-			delay_ms(50);
-			if(INPUT_HARP_1 == 1)
-			{
-				selectHarp = RE;
-				playMp3(MUSIC_RE);
-				harpStep++;
-			}
+			selectHarp = 2;
+			playMp3(MUSIC_RE);
 		}
-		else if(INPUT_HARP_2 == 0)
+		if(INPUT_HARP_2 == 1)
 		{
-			delay_ms(50);
-			if(INPUT_HARP_2 == 1)
-			{
-				selectHarp = MI;
-				playMp3(MUSIC_MI);
-				harpStep++;
-			}
+			selectHarp = 3;
+			playMp3(MUSIC_MI);
 		}
-		else if(INPUT_HARP_3 == 0)
+		if(INPUT_HARP_3 == 1)
 		{
-			delay_ms(50);
-			if(INPUT_HARP_3 == 1)
-			{
-				selectHarp = FA;
-				playMp3(MUSIC_FA);
-				harpStep++;
-			}
+			selectHarp = 4;
+			playMp3(MUSIC_FA);
 		}
-		else if(INPUT_HARP_4 == 0)
+		if(INPUT_HARP_4 == 1)
 		{
-			delay_ms(50);
-			if(INPUT_HARP_4 == 1)
-			{
-				selectHarp = SO;
-				playMp3(MUSIC_SO);
-				harpStep++;
-			}
+			selectHarp = 5;
+			playMp3(MUSIC_SO);
 		}
-		else if(INPUT_HARP_5 == 0)
+		if(INPUT_HARP_5 == 1)
 		{
-			delay_ms(50);
-			if(INPUT_HARP_5 == 1)
-			{
-				selectHarp = LA;
-				playMp3(MUSIC_LA);
-				harpStep++;
-			}
+			selectHarp = 6;
+			playMp3(MUSIC_LA);
 		}
-		else if(INPUT_HARP_6 == 0)
+		if(INPUT_HARP_6 == 1)
 		{
-			delay_ms(50);
-			if(INPUT_HARP_6 == 1)
-			{
-				selectHarp = SI;
-				playMp3(MUSIC_SI);
-				harpStep++;
-			}
+			selectHarp = 7;
+			playMp3(MUSIC_SI);
 		}
+
+		if((selectHarp != 0) && (selectHarp != lastHarp))
+		{
+            for(i = 0 ; i < answerLength-1 ; i++ )
+			{
+				myAnswer[i] = myAnswer[i+1];
+			}
+			myAnswer[9] = selectHarp;
+			lastHarp = selectHarp;
+			selectHarp = 0;
+        }
+        
+        for (i = 0; i < answerLength; i++) {
+            if(HARP_ANSWER[i] == myAnswer[i])
+            {
+                if(i == answerLength -1)
+                {
+                   isCorrect = 1;
+               }
+            }
+			else
+			{
+				break;
+			}
+        }
 		
-		if(HARP_ANSWER[harpStep] == selectHarp)
+		if(isCorrect == 1)
 		{
 			//全部正确
-			if(harpStep == answerLength)
-			{
-				playMp3(MUSIC_HARP_CORRECT);
-				setStep(4);
-				//断电开门
-				OUTPUT_DOOR_34 = 0;
-				//打开柜门
-				OUTPUT_DOOR_37 = 0;
-				return;
-			}
-		}
-		else
-		{
-			harpStep = 0;
-			playMp3(MUSIC_HARP_ERROR);
-			delay_ms(5000);
+            playMp3(MUSIC_HARP_CORRECT);
+            setStep(4);
+            //断电开门
+            OUTPUT_DOOR_34 = 0;
+            //打开柜门
+            OUTPUT_DOOR_37 = 0;
+
+            return;
 		}
 	}
 }
@@ -237,7 +223,7 @@ void laser_and_say()
 		{
 			OUTPUT_DOOR_35 = 0;
 			playMp3(MUSIC_LASER_SAY_CORRECT);
-			SIG_BOARD2 = 1;//下一块板子信号
+			OUTPUT_SIG_BOARD2 = 1;//下一块板子信号
 			setStep(5);
 			return;
 		}

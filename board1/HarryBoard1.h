@@ -12,12 +12,12 @@ code int MUSIC_HARP_ERROR = 0x0b;
 code int MUSIC_HARP_CORRECT = 0x0c;
 code int MUSIC_LASER_SAY_CORRECT = 0x0d;
 
-code char DO = '1';
-code char RE = '2';
-code char MI = '3';
-code char FA = '4';
-code char SO = '5';
-code char LA = '6';
-code char SI = '7';
+code int DO = 1;
+code int RE = 2;
+code int MI = 3;
+code int FA = 4;
+code int SO = 5;
+code int LA = 6;
+code int SI = 7;
 
-code char HARP_ANSWER[] = {'0','1','2','3','4','5','6','7'};
+code int HARP_ANSWER[10] = {2,4,2,4,2,4,7,6,5,4};
