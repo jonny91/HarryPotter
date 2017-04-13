@@ -1,4 +1,4 @@
-#include <STC12C5A60S2.H>
+#include <STC89C5xRC.H>
 #include "HarryBoard2.h"
 #include "BackRoom.h"
 #include "uart.h"
@@ -10,46 +10,52 @@ void timer0();
 void medicine();
 void say();
 void stone();
+void check();
 
-sbit INPUT_00 = P0^0; //手牵手的输入
-sbit OUTPUT_10 = P1^0;//手牵手正确之后输出 继电器柜门和激光切换
+sbit INPUT_FROM_BOARD_1 = P0^0; // 第一块板子的信号
+sbit INPUT_00 = P0^1; //手牵手的输入
+sbit OUTPUT_02 = P0^2;//手牵手正确之后输出
 
-sbit chess_0 = P4^4;
-sbit chess_1 = P4^5;
-sbit chess_2 = P4^1;
-sbit chess_3 = P4^6;
-sbit chess_4 = P0^7;
-sbit chess_5 = P0^6;
-sbit chess_6 = P0^5;
-sbit chess_7 = P0^4;
+//国际象棋
+sbit chess_0 = P1^0;
+sbit chess_1 = P1^1;
+sbit chess_2 = P1^2;
+sbit chess_3 = P1^3;
+sbit chess_4 = P1^4;
+sbit chess_5 = P1^5;
+sbit chess_6 = P1^6;
+sbit chess_7 = P1^7;
 
-sbit chess_light_0 = P4^0;
-sbit chess_light_1 = P2^0;
-sbit chess_light_2 = P2^1;
-sbit chess_light_3 = P2^2;
-sbit chess_light_4 = P2^3;
-sbit chess_light_5 = P2^4;
-sbit chess_light_6 = P2^5;
-sbit chess_light_7 = P2^6;
+sbit chess_light_0 = P2^0;
+sbit chess_light_1 = P2^1;
+sbit chess_light_2 = P2^2;
+sbit chess_light_3 = P2^3;
+sbit chess_light_4 = P2^4;
+sbit chess_light_5 = P2^5;
+sbit chess_light_6 = P2^6;
+sbit chess_light_7 = P2^7;
 
-sbit OUTPUT_ROOM4 = P4^2;
-sbit INPUT_MEDICINE = P1^1;
+sbit OUTPUT_ROOM4 = P0^3;
+sbit INPUT_MEDICINE = P0^4;
 //继电器接GND 触发了的时候 接通GND
-sbit OUTPUT_MEDICINE = P1^2;
-sbit INPUT_SAY = P1^3;
-sbit OUTPUT_SAY_CORRECT = P1^4;
+sbit OUTPUT_MEDICINE = P0^5;
+sbit INPUT_SAY = P0^6;
+//魔法石的盒子
+sbit OUTPUT_SAY_CORRECT = P0^7;
 //拿掉魔法石
-sbit INPUT_STONE = P0^2;
+sbit INPUT_STONE = P3^3;
 //最后的门
-sbit OUTPUT_LAST_DOOR = P1^5;
+sbit OUTPUT_LAST_DOOR = P3^4;
 
 int i = 0;
 int chessStep = 0;
 
 void init()
 {
+    INPUT_FROM_BOARD_1 = 0;
+    
 	INPUT_00 = 0;
-	OUTPUT_10 = 1;
+	OUTPUT_02 = 1;
 	
 	chess_0 = 0;
 	chess_1 = 0;
@@ -71,7 +77,7 @@ void init()
 	
 	OUTPUT_ROOM4 = 1;
 	INPUT_MEDICINE = 0;
-	OUTPUT_MEDICINE = 0;
+	OUTPUT_MEDICINE = 1;
 	INPUT_SAY = 0;
 	OUTPUT_SAY_CORRECT = 1;
 	INPUT_STONE = 0;
@@ -95,23 +101,36 @@ void main()
 	{
 		switch(step)
 		{
-			case 0:
+            case 0:
+                check();
+                break;
+			case 1:
 				handInHand();
 				break;
-			case 1:
+			case 2:
 				chess();
 				break;
-			case 2:
+			case 3:
 				medicine();
 				break;
-			case 3:
+			case 4:
 				say();
 				break;
-			case 4:
+			case 5:
 				stone();
 				break;
+            case 6:
+                break;
 		}
 	}
+}
+
+void check()
+{
+    if(INPUT_FROM_BOARD_1 == 1)
+    {
+        setStep(1);
+    }
 }
 
 void handInHand()
@@ -121,9 +140,9 @@ void handInHand()
 		delay_ms(500);
 		if(INPUT_00 == 1)
 		{
-			OUTPUT_10 = 0;
+			OUTPUT_02 = 0;
 			playMp3(MUSIC_HANDINHAND_CORRECT);
-			setStep(1);
+			setStep(2);
 		}
 	}
 }
@@ -134,7 +153,7 @@ void stone()
 	{
 		playMp3(MUSIC_GET_STONE);
 		OUTPUT_LAST_DOOR = 0;
-		setStep(5);
+		setStep(6);
 	}
 }
 
@@ -146,7 +165,7 @@ void say()
 		if(INPUT_SAY == 1)
 		{
 			OUTPUT_SAY_CORRECT = 0;
-			setStep(4);
+			setStep(5);
 		}
 	}
 }
@@ -158,8 +177,8 @@ void medicine()
 		delay_ms(50);
 		if(INPUT_MEDICINE == 1)
 		{
-			setStep(3);
-			OUTPUT_MEDICINE = 1;
+			setStep(4);
+			OUTPUT_MEDICINE = 0;
 			playMp3(MUSIC_MEDICINE_CORRECT);
 		}
 	}
@@ -268,7 +287,7 @@ void chess()
 					delay_ms(50);
 					if(chess_7 == 1)
 					{
-						setStep(2);
+						setStep(3);
 						ET0 = 0;
 						playMp3(MUSIC_CHESS);
 						//开第四个房间的门
