@@ -14,17 +14,26 @@ void check();
 
 sbit INPUT_FROM_BOARD_1 = P0^0; // 第一块板子的信号
 sbit INPUT_00 = P0^1; //手牵手的输入
-sbit OUTPUT_02 = P0^2;//手牵手正确之后输出
+sbit OUTPUT_02 = P0^2;//手牵手正确之后输出 棋盘的射灯亮
 
 //国际象棋
-sbit chess_0 = P1^0;
-sbit chess_1 = P1^1;
-sbit chess_2 = P1^2;
-sbit chess_3 = P1^3;
-sbit chess_4 = P1^4;
-sbit chess_5 = P1^5;
-sbit chess_6 = P1^6;
-sbit chess_7 = P1^7;
+//7f+8e同时踩下后 触发闪灯
+//7f灭 8e亮 1亮
+//1灭 8e亮 2亮
+//8e灭 2亮 3亮
+//2灭 3亮 4亮
+//3灭 4亮 5亮
+//4灭 5亮 6亮
+//5灭 6亮 7亮
+sbit chess_0 = P1^0;//8e
+sbit chess_1 = P1^1;//7F
+sbit chess_2 = P1^2;//1
+sbit chess_3 = P1^3;//2
+sbit chess_4 = P1^4;//3
+sbit chess_5 = P1^5;//4
+sbit chess_6 = P1^6;//5
+sbit chess_7 = P1^7;//6
+sbit chess_8 = P3^5;//7
 
 sbit chess_light_0 = P2^0;
 sbit chess_light_1 = P2^1;
@@ -34,11 +43,11 @@ sbit chess_light_4 = P2^4;
 sbit chess_light_5 = P2^5;
 sbit chess_light_6 = P2^6;
 sbit chess_light_7 = P2^7;
+sbit chess_light_8 = P3^6;
 
 sbit OUTPUT_ROOM4 = P0^3;
 sbit INPUT_MEDICINE = P0^4;
-//继电器接GND 触发了的时候 接通GND
-sbit OUTPUT_MEDICINE = P0^5;
+
 sbit INPUT_SAY = P0^6;
 //魔法石的盒子
 sbit OUTPUT_SAY_CORRECT = P0^7;
@@ -65,19 +74,20 @@ void init()
 	chess_5 = 0;
 	chess_6 = 0;
 	chess_7 = 0;
+    chess_8 = 0;
 	
-	chess_light_0 = 0;
-	chess_light_1 = 0;
-	chess_light_2 = 0;
-	chess_light_3 = 0;
-	chess_light_4 = 0;
-	chess_light_5 = 0;
-	chess_light_6 = 0;
-	chess_light_7 = 0;
+	chess_light_0 = 1;
+	chess_light_1 = 1;
+	chess_light_2 = 1;
+	chess_light_3 = 1;
+	chess_light_4 = 1;
+	chess_light_5 = 1;
+	chess_light_6 = 1;
+	chess_light_7 = 1;
+    chess_light_8 = 1;
 	
 	OUTPUT_ROOM4 = 1;
 	INPUT_MEDICINE = 0;
-	OUTPUT_MEDICINE = 1;
 	INPUT_SAY = 0;
 	OUTPUT_SAY_CORRECT = 1;
 	INPUT_STONE = 0;
@@ -178,7 +188,7 @@ void medicine()
 		if(INPUT_MEDICINE == 1)
 		{
 			setStep(4);
-			OUTPUT_MEDICINE = 0;
+
 			playMp3(MUSIC_MEDICINE_CORRECT);
 		}
 	}
