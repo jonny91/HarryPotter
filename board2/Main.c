@@ -46,7 +46,8 @@ sbit chess_light_7 = P2^7;
 sbit chess_light_8 = P3^6;
 
 sbit OUTPUT_ROOM4 = P0^3;
-sbit INPUT_MEDICINE = P0^4;
+sbit INPUT_MEDICINE_1 = P0^4;
+sbit INPUT_MEDICINE_2 = P0^5;
 
 sbit INPUT_SAY = P0^6;
 //魔法石的盒子
@@ -87,7 +88,8 @@ void init()
     chess_light_8 = 1;
 	
 	OUTPUT_ROOM4 = 1;
-	INPUT_MEDICINE = 0;
+	INPUT_MEDICINE_1 = 0;
+	INPUT_MEDICINE_2 = 0;
 	INPUT_SAY = 0;
 	OUTPUT_SAY_CORRECT = 1;
 	INPUT_STONE = 0;
@@ -182,10 +184,10 @@ void say()
 
 void medicine()
 {
-	if(INPUT_MEDICINE == 1)
+	if( (INPUT_MEDICINE_1 == 1) && (INPUT_MEDICINE_2 == 1))
 	{
 		delay_ms(50);
-		if(INPUT_MEDICINE == 1)
+		if((INPUT_MEDICINE_1 == 1) && (INPUT_MEDICINE_2 == 1))
 		{
 			setStep(4);
 
