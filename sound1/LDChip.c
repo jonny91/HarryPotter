@@ -277,28 +277,12 @@ uint8 LD_AsrAddFixed()
 {
 	uint8 k, flag;
 	uint8 nAsrAddLength;
-	#define DATE_A 9   /*数组二维数值*/
+	#define DATE_A 1   /*数组二维数值*/
 	#define DATE_B 32		/*数组一维数值*/
 	uint8 code sRecog[DATE_A][DATE_B] = {
-																				"xiao jie",\		
-																				"kai fa ban yan zheng",\
-																				 "dai ma ce shi",\
-																				 "kai deng",\
-																				 "guan deng",\
-																				 "bei jing",\
-																				 "shang hai",\
-																				 "guang zhou",\
 																				 "a la huo dong kai"
 																			};	/*添加关键词，用户修改*/
 	uint8 code pCode[DATE_A] = {
-															CODE_CMD,\
-															CODE_KFBYZ,\
-															CODE_DMCS,\
-															CODE_KD,\
-															CODE_GD,\
-															CODE_BJ,\
-															CODE_SH,\
-															CODE_GZ,\
 															CODE_ALA
 														 };	/*添加识别码，用户修改*/	
 	flag = 1;
