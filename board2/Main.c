@@ -16,6 +16,7 @@ sbit INPUT_FROM_BOARD_1 = P0^0; // 第一块板子的信号
 sbit INPUT_00 = P0^1; //手牵手的输入
 sbit OUTPUT_02 = P0^2;//手牵手正确之后输出 棋盘的射灯亮
 
+
 //国际象棋
 //7f+8e同时踩下后 触发闪灯
 //7f灭 8e亮 1亮
@@ -25,8 +26,10 @@ sbit OUTPUT_02 = P0^2;//手牵手正确之后输出 棋盘的射灯亮
 //3灭 4亮 5亮
 //4灭 5亮 6亮
 //5灭 6亮 7亮
-sbit chess_0 = P1^0;//8e
-sbit chess_1 = P1^1;//7F
+//演示完 重新踩7F 8E
+//每一步 30秒计时
+sbit chess_0 = P1^0;//7F
+sbit chess_1 = P1^1;//8E
 sbit chess_2 = P1^2;//1
 sbit chess_3 = P1^3;//2
 sbit chess_4 = P1^4;//3
@@ -59,15 +62,10 @@ sbit OUTPUT_LAST_DOOR = P3^4;
 int i = 0;
 int chessStep = 0;
 
-void init()
+//初始化象棋的接口 
+//7f 8e不在里面初始化
+void initChessLight()
 {
-    INPUT_FROM_BOARD_1 = 0;
-    
-	INPUT_00 = 0;
-	OUTPUT_02 = 1;
-	
-	chess_0 = 0;
-	chess_1 = 0;
 	chess_2 = 0;
 	chess_3 = 0;
 	chess_4 = 0;
@@ -85,6 +83,19 @@ void init()
 	chess_light_6 = 1;
 	chess_light_7 = 1;
     chess_light_8 = 1;
+}
+
+void init()
+{
+    INPUT_FROM_BOARD_1 = 0;
+    
+	INPUT_00 = 0;
+	OUTPUT_02 = 1;
+	
+	chess_0 = 0;
+	chess_1 = 0;
+	
+	initChessLight();
 	
 	OUTPUT_ROOM4 = 1;
 	INPUT_MEDICINE = 0;
@@ -111,9 +122,9 @@ void main()
 	{
 		switch(step)
 		{
-            case 0:
-                check();
-                break;
+			case 0:
+				check();
+				break;
 			case 1:
 				handInHand();
 				break;
@@ -129,8 +140,8 @@ void main()
 			case 5:
 				stone();
 				break;
-            case 6:
-                break;
+			 case 6:
+				break;
 		}
 	}
 }
@@ -194,117 +205,158 @@ void medicine()
 	}
 }
 
-void chessShineLight()
+//演示
+void chessPlay()
 {
 	ET0 = 0;
 	
+	chess_light_0 = 0;
+	chess_light_1 = 0; //7f + 8e亮
 	delay_ms(1000);
-	chess_light_1 = 1;
+	
+	chess_light_0 = 1;//7f灭
+	chess_light_2 = 0;//1亮
 	delay_ms(1000);
-	chess_light_1 = 0;
+	
+	chess_light_2 = 1;//1灭
+	chess_light_3 = 0;//2亮
+	delay_ms(1000);
+	
+	chess_light_1 = 1;//8e灭
+	chess_light_4 = 0;//3亮
+	delay_ms(1000);
+	
+	chess_light_3 = 1;//2灭
+	chess_light_5 = 0;//4亮
+	delay_ms(1000);
+	
+	chess_light_4 = 1;//3灭
+	chess_light_6 = 0;//5亮
+	delay_ms(1000);
+	
+	chess_light_5 = 1;//4灭	
+	chess_light_7 = 0;//6亮
+	delay_ms(1000);
+	
+	chess_light_6 = 1;//5灭
+	chess_light_8 = 0;//7亮
+	delay_ms(1000);
+	
+	chess_light_7 = 1;
+	chess_light_8 = 1; //熄灭67
+	delay_ms(500);
 	
 	ET0 = 1;
 	i = CHESS_TIME;		
 }
 
+void chessPressLight()
+{
+	if(chess_0 == 1){chess_light_0 = 1;}
+	if(chess_0 == 0){chess_light_0 = 0;}
+		
+	if(chess_1 == 1){chess_light_1 = 1;}
+	if(chess_1 == 0){chess_light_1 = 0;}
+		
+	if(chess_2 == 1){chess_light_2 = 1;}
+	if(chess_2 == 0){chess_light_2 = 0;}
+	
+	if(chess_3 == 1){chess_light_3 = 1;}
+	if(chess_3 == 0){chess_light_3 = 0;}
+		
+	if(chess_4 == 1){chess_light_4 = 1;}
+	if(chess_4 == 0){chess_light_4 = 0;}
+		
+	if(chess_5 == 1){chess_light_5 = 1;}
+	if(chess_5 == 0){chess_light_5 = 0;}
+		
+	if(chess_6 == 1){chess_light_6 = 1;}
+	if(chess_6 == 0){chess_light_6 = 0;}
+
+	if(chess_7 == 1){chess_light_7 = 1;}
+	if(chess_7 == 0){chess_light_7 = 0;}
+		
+	if(chess_8 == 1){chess_light_8 = 1;}
+	if(chess_8 == 0){chess_light_8 = 0;}
+}
+
+int isNeedPlay = 1; //是否需要演示
 void chess()
 {
-	chessShineLight();
+	int isRight = 1;
+
 	while(1)
-	{
+	{		
+		if((chess_0 == 1)&&(chess_1 == 1)&&(isNeedPlay == 1)) //7f 8e同时踩下
+		{
+			chessPlay();
+			isNeedPlay = 0;//演示过了
+		}
+		
+		//踩下亮对应的灯泡
+		chessPressLight();			
+		
 		switch(chessStep)
 		{
-			case 0:
-				if(chess_0 == 0)
+			case 0: //7f+8e
+				if((chess_0 == 1)&&(chess_1 == 1))
 				{
-					delay_ms(50);
-					if(chess_0 == 1)
-					{
-						chessStep = 1;
-						i = CHESS_TIME;	
-					}
+					chessStep = 1;
+					i = CHESS_TIME;	
 				}
 				break;
-			case 1:
-				if(chess_1 == 0)
+			case 1://7f灭 8e亮 1亮
+				if((chess_0 == 0)&&(chess_1 == 1)&&(chess_2 == 1))
 				{
-					delay_ms(50);
-					if(chess_1 == 1)
-					{
-						chessStep = 2;
-						i = CHESS_TIME;	
-					}
+					chessStep = 2;
+					i = CHESS_TIME;	
 				}
 				break;
-			case 2:
-				if(chess_2 == 0)
+			case 2://1灭 8e亮 2亮
+				if((chess_2 == 0)&&(chess_1 == 1)&&(chess_3 == 1))
 				{
-					delay_ms(50);
-					if(chess_2 == 1)
-					{
-						chessStep = 3;
-						i = CHESS_TIME;	
-					}
+					chessStep = 3;
+					i = CHESS_TIME;	
 				}
 				break;
-			case 3:
-				if(chess_3 == 0)
+			case 3://8e灭 2亮 3亮
+				if((chess_1 == 0)&&(chess_3 == 1)&&(chess_4 == 1))
 				{
-					delay_ms(50);
-					if(chess_3 == 1)
-					{
-						chessStep = 4;
-						i = CHESS_TIME;	
-					}
+					chessStep = 4;
+					i = CHESS_TIME;	
 				}
 				break;
-			case 4:
-				if(chess_4 == 0)
+			case 4://2灭 3亮 4亮
+				if((chess_3 == 0)&&(chess_4 == 1)&&(chess_5 == 1))
 				{
-					delay_ms(50);
-					if(chess_4 == 1)
-					{
-						chessStep = 5;
-						i = CHESS_TIME;		
-					}
+					chessStep = 5;
+					i = CHESS_TIME;	
 				}
 				break;
-			case 5:
-				if(chess_5 == 0)
+			case 5://3灭 4亮 5亮
+				if((chess_4 == 0)&&(chess_5 == 1)&&(chess_6 == 1))
 				{
-					delay_ms(50);
-					if(chess_5 == 1)
-					{
-						chessStep = 6;
-						i = CHESS_TIME;		
-					}
+					chessStep = 6;
+					i = CHESS_TIME;	
 				}
 				break;
-			case 6:
-				if(chess_6 == 0)
+			case 6://4灭 5亮 6亮
+				if((chess_5 == 0)&&(chess_6 == 1)&&(chess_7 == 1))
 				{
-					delay_ms(50);
-					if(chess_6 == 1)
-					{
-						chessStep = 7;
-						i = CHESS_TIME;	
-					}
+					chessStep = 7;
+					i = CHESS_TIME;	
 				}
 				break;
-			case 7:
-				if(chess_7 == 0)
+			case 7://5灭 6亮 7亮
+				if((chess_6 == 0)&&(chess_7 == 1)&&(chess_8 == 1))
 				{
-					delay_ms(50);
-					if(chess_7 == 1)
-					{
-						setStep(3);
-						ET0 = 0;
-						playMp3(MUSIC_CHESS);
-						//开第四个房间的门
-						OUTPUT_ROOM4 = 0;
-						
-						return;
-					}
+					setStep(3);
+					ET0 = 0;
+					playMp3(MUSIC_CHESS);
+					
+					//开第四个房间的门
+					OUTPUT_ROOM4 = 0;
+					return;
 				}
 				break;
 		}
@@ -322,7 +374,8 @@ void Timer_Routine(void) interrupt 1
 	{
 		i = CHESS_TIME;		
 		chessStep = 0;
-		chessShineLight();
+		initChessLight();
+		isNeedPlay = 1;
     }        
 }
 
