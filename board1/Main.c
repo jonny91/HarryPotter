@@ -80,6 +80,7 @@ void main()
 				break;
 			case 3://µØ ˙«Ÿ		
 				OUTPUT_HARP_SWITCH = 1;
+				delay_ms(1000);
 				harp();
 				break;
 			case 4: //º§π‚”Ô“Ù
