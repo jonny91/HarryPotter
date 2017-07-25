@@ -129,11 +129,11 @@ void room1Say()
 
 void harp()
 {
-	int answerLength = 8;
+	int answerLength = 10;
 	unsigned int harpStep = 0;
 	int selectHarp = 0;
 	int lastHarp = 0;
-	int myAnswer[8] = {0,0,0,0,0,0,0,0};
+	int myAnswer[10] = {0,0,0,0,0,0,0,0,0,0};
 	int isCorrect = 0;
 	int i;
 
@@ -246,7 +246,7 @@ void harp()
                 if(i == answerLength -1)
                 {
                    isCorrect = 1;
-				}
+               }
             }
 			else
 			{
