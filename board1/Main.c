@@ -229,7 +229,7 @@ void harp()
 		}
 	
 
-		if((selectHarp != 0) && (selectHarp != lastHarp))
+		if(selectHarp != 0)
 		{
             for(i = 0 ; i < answerLength-1 ; i++ )
 			{
