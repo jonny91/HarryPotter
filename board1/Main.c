@@ -134,46 +134,81 @@ void harp()
 	int selectHarp = 0;
 	int lastHarp = 0;
 	int myAnswer[10] = {0,0,0,0,0,0,0,0,0,0};
-    int isCorrect = 0;
-    int i;
+  int isCorrect = 0;
+  int i;
 
 	while(1)
 	{
-		if(INPUT_HARP_0 == 1)
+		if(INPUT_HARP_0 == 0)
 		{
-			selectHarp = 1;
-			playMp3(MUSIC_DO);
+			delay_ms(50);
+			if(INPUT_HARP_0 == 1)
+			{
+				selectHarp = 1;
+				playMp3(MUSIC_DO);
+			}			
 		}
-		if(INPUT_HARP_1 == 1)
+		
+		if(INPUT_HARP_1 == 0)
 		{
-			selectHarp = 2;
-			playMp3(MUSIC_RE);
+			delay_ms(50);
+			if(INPUT_HARP_1 == 1)
+			{
+				selectHarp = 2;
+				playMp3(MUSIC_RE);
+			}
 		}
-		if(INPUT_HARP_2 == 1)
+		
+		if(INPUT_HARP_2 == 0)
 		{
-			selectHarp = 3;
-			playMp3(MUSIC_MI);
+			delay_ms(50);
+			if(INPUT_HARP_2 == 1)
+			{
+				selectHarp = 3;
+				playMp3(MUSIC_MI);
+			}
 		}
-		if(INPUT_HARP_3 == 1)
+		
+		if(INPUT_HARP_3 == 0)
 		{
-			selectHarp = 4;
-			playMp3(MUSIC_FA);
+			delay_ms(50);
+			if(INPUT_HARP_3 == 1)
+			{
+				selectHarp = 4;
+				playMp3(MUSIC_FA);
+			}
 		}
-		if(INPUT_HARP_4 == 1)
+		
+		if(INPUT_HARP_4 == 0)
 		{
-			selectHarp = 5;
-			playMp3(MUSIC_SO);
+			delay_ms(50);
+			if(INPUT_HARP_4 == 1)
+			{
+				selectHarp = 5;
+				playMp3(MUSIC_SO);
+			}
 		}
-		if(INPUT_HARP_5 == 1)
+		
+		if(INPUT_HARP_5 == 0)
 		{
-			selectHarp = 6;
-			playMp3(MUSIC_LA);
+			delay_ms(50);
+			if(INPUT_HARP_5 == 1)
+			{
+				selectHarp = 6;
+				playMp3(MUSIC_LA);
+			}
 		}
-		if(INPUT_HARP_6 == 1)
+		
+		if(INPUT_HARP_6 == 0)
 		{
-			selectHarp = 7;
-			playMp3(MUSIC_SI);
+			delay_ms(50);
+			if(INPUT_HARP_6 == 1)
+			{
+				selectHarp = 7;
+				playMp3(MUSIC_SI);
+			}
 		}
+		
 
 		if((selectHarp != 0) && (selectHarp != lastHarp))
 		{
