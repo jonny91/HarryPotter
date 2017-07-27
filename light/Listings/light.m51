@@ -1,4 +1,4 @@
-BL51 BANKED LINKER/LOCATER V6.22                                                        07/06/2017  19:07:00  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22                                                        07/25/2017  21:48:38  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
@@ -29,8 +29,8 @@ LINK MAP OF MODULE:  .\Objects\light (?C_STARTUP)
             * * * * * * *   C O D E   M E M O R Y   * * * * * * *
             CODE    0000H     0003H     ABSOLUTE     
             CODE    0003H     008CH     UNIT         ?C_C51STARTUP
-            CODE    008FH     003AH     UNIT         ?PR?MAIN?MAIN
-            CODE    00C9H     0026H     UNIT         ?PR?_DELAY_MS?MAIN
+            CODE    008FH     0033H     UNIT         ?PR?MAIN?MAIN
+            CODE    00C2H     002DH     UNIT         ?PR?_DELAY_MS?MAIN
             CODE    00EFH     0011H     UNIT         ?PR?INIT?MAIN
             CODE    0100H     0005H     UNIT         ?PR?_SETSTEP?MAIN
             CODE    0105H     0005H     UNIT         ?C_INITSEG
@@ -59,7 +59,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\light (?C_STARTUP)
   ----------------------------------
 
   -------         MODULE        ?C_STARTUP
-BL51 BANKED LINKER/LOCATER V6.22                                                      07/06/2017  19:07:00  PAGE 2
+BL51 BANKED LINKER/LOCATER V6.22                                                      07/25/2017  21:48:38  PAGE 2
 
 
   C:0003H         SEGMENT       ?C_C51STARTUP
@@ -119,11 +119,13 @@ SYMBOL TABLE OF MODULE:  .\Objects\light (?C_STARTUP)
   D:0008H         PUBLIC        step
   C:00C9H         PUBLIC        _delay_ms
   D:00C8H         PUBLIC        T2CON
-BL51 BANKED LINKER/LOCATER V6.22                                                      07/06/2017  19:07:00  PAGE 3
+BL51 BANKED LINKER/LOCATER V6.22                                                      07/25/2017  21:48:38  PAGE 3
 
 
   C:0100H         PUBLIC        _setStep
   D:00D0H         PUBLIC        PSW
+  -------         PROC          L?0015
+  -------         ENDPROC       L?0015
   -------         PROC          _DELAY_MS
   D:0006H         SYMBOL        count
   -------         DO            
@@ -164,29 +166,32 @@ SYMBOL TABLE OF MODULE:  .\Objects\light (?C_STARTUP)
   C:0092H         LINE#         21
   C:0092H         LINE#         22
   C:0094H         LINE#         23
-  C:009BH         LINE#         24
-  C:009DH         LINE#         26
-  C:009FH         LINE#         27
-  C:00A2H         LINE#         28
-  C:00A4H         LINE#         30
-  C:00A6H         LINE#         31
-  C:00A9H         LINE#         32
-  C:00ABH         LINE#         34
-  C:00ADH         LINE#         35
-  C:00B0H         LINE#         36
-  C:00B2H         LINE#         38
-  C:00B4H         LINE#         39
-  C:00B7H         LINE#         40
-  C:00B9H         LINE#         42
-  C:00BBH         LINE#         43
-BL51 BANKED LINKER/LOCATER V6.22                                                      07/06/2017  19:07:00  PAGE 4
+  C:0098H         LINE#         24
+  C:0098H         LINE#         26
+  C:0098H         LINE#         27
+  C:009BH         LINE#         28
+  C:009DH         LINE#         30
+  C:009FH         LINE#         31
+  C:009FH         LINE#         32
+  C:009FH         LINE#         34
+  C:009FH         LINE#         35
+  C:00A2H         LINE#         36
+  C:00A4H         LINE#         38
+  C:00A6H         LINE#         39
+  C:00A9H         LINE#         40
+BL51 BANKED LINKER/LOCATER V6.22                                                      07/25/2017  21:48:38  PAGE 4
 
 
-  C:00BEH         LINE#         44
-  C:00C0H         LINE#         46
-  C:00C2H         LINE#         47
-  C:00C5H         LINE#         48
-  C:00C7H         LINE#         49
+  C:00ABH         LINE#         42
+  C:00ADH         LINE#         43
+  C:00B0H         LINE#         44
+  C:00B2H         LINE#         46
+  C:00B4H         LINE#         47
+  C:00B7H         LINE#         48
+  C:00B9H         LINE#         50
+  C:00BBH         LINE#         51
+  C:00BEH         LINE#         52
+  C:00C0H         LINE#         53
   -------         ENDPROC       MAIN
   -------         ENDMOD        MAIN
 

@@ -80,6 +80,7 @@ void main()
 				break;
 			case 3://µØ ˙«Ÿ		
 				OUTPUT_HARP_SWITCH = 1;
+				delay_ms(1000);
 				harp();
 				break;
 			case 4: //º§π‚”Ô“Ù
@@ -134,48 +135,102 @@ void harp()
 	int selectHarp = 0;
 	int lastHarp = 0;
 	int myAnswer[10] = {0,0,0,0,0,0,0,0,0,0};
-    int isCorrect = 0;
-    int i;
+	int isCorrect = 0;
+	int i;
 
+	int lastInput0 = 0;
+	int lastInput1 = 0;
+	int lastInput2 = 0;
+	int lastInput3 = 0;
+	int lastInput4 = 0;
+	int lastInput5 = 0;
+	int lastInput6 = 0;
+	
 	while(1)
 	{
-		if(INPUT_HARP_0 == 1)
+		if(INPUT_HARP_0 == 0)
 		{
+			lastInput0 = 0;
+		}
+		if(INPUT_HARP_1 == 0)
+		{
+			lastInput1 = 0;
+		}
+		if(INPUT_HARP_2 == 0)
+		{
+			lastInput2 = 0;
+		}
+		if(INPUT_HARP_3 == 0)
+		{
+			lastInput3 = 0;
+		}
+		if(INPUT_HARP_4 == 0)
+		{
+			lastInput4 = 0;
+		}
+		if(INPUT_HARP_5 == 0)
+		{
+			lastInput5 = 0;
+		}
+		if(INPUT_HARP_6 == 0)
+		{
+			lastInput6 = 0;
+		}
+		
+		if((lastInput0 == 0) &&(INPUT_HARP_0 == 1))
+		{
+			lastInput0 = 1;
 			selectHarp = 1;
 			playMp3(MUSIC_DO);
-		}
-		if(INPUT_HARP_1 == 1)
+		}		
+
+		if((lastInput1 == 0)&&(INPUT_HARP_1 == 1))
 		{
+			lastInput1 = 1;
 			selectHarp = 2;
 			playMp3(MUSIC_RE);
 		}
-		if(INPUT_HARP_2 == 1)
+		
+		if((lastInput2 == 0)&&(INPUT_HARP_2 == 1))
 		{
+			lastInput2 = 1;
 			selectHarp = 3;
 			playMp3(MUSIC_MI);
 		}
-		if(INPUT_HARP_3 == 1)
+		
+		if((lastInput3 == 0)&&(INPUT_HARP_3 == 1))
 		{
+			lastInput3 = 1;
 			selectHarp = 4;
 			playMp3(MUSIC_FA);
 		}
-		if(INPUT_HARP_4 == 1)
+
+
+		if((lastInput4 == 0)&&(INPUT_HARP_4 == 1))
 		{
+			lastInput4 = 1;
 			selectHarp = 5;
 			playMp3(MUSIC_SO);
 		}
-		if(INPUT_HARP_5 == 1)
+
+
+		if((lastInput5 == 0)&&(INPUT_HARP_5 == 1))
 		{
+			lastInput5 = 1;
 			selectHarp = 6;
 			playMp3(MUSIC_LA);
 		}
-		if(INPUT_HARP_6 == 1)
+
+
+		if((lastInput6 == 0)&&(INPUT_HARP_6 == 1))
 		{
+			lastInput6 = 1;
 			selectHarp = 7;
 			playMp3(MUSIC_SI);
 		}
+	
 
-		if((selectHarp != 0) && (selectHarp != lastHarp))
+		if(selectHarp != 0)
 		{
             for(i = 0 ; i < answerLength-1 ; i++ )
 			{
