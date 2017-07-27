@@ -55,7 +55,7 @@ void  main(void)
 	PrintCom("	7、广州\r\n"); /*text.....*/
 	#endif
 
-  	LED = 1;
+  	LED = 0;
 	while(1)
 	{
 		switch(nAsrStatus)
@@ -202,7 +202,7 @@ void 	User_handle(uint8 dat)
 						break;
 					case CODE_ALA:
 						PrintCom("阿拉霍洞开\r\n");
-						LED = 0;
+						LED = 1;
 						break;																				
 					default:
 						PrintCom("请重新识别发口令\r\n"); /*text.....*/
