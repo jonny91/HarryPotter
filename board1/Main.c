@@ -55,7 +55,7 @@ void init()
 	OUTPUT_ROOM2_DOOR = 1;
 	
 	OUTPUT_SIG_BOARD2 = 0;
-	OUTPUT_HARP_SWITCH = 0;
+	OUTPUT_HARP_SWITCH = 1;
 }
 void main()
 {
@@ -79,7 +79,7 @@ void main()
 				room1Say();
 				break;
 			case 3://µ¯ÊúÇÙ		
-				OUTPUT_HARP_SWITCH = 1;
+				OUTPUT_HARP_SWITCH = 0;
 				delay_ms(1000);
 				harp();
 				break;
@@ -87,7 +87,7 @@ void main()
 				laser_and_say();
 				break;
 			case 5:
-				OUTPUT_HARP_SWITCH = 0;
+				OUTPUT_HARP_SWITCH = 1;
 				break;
 		}
 	}
