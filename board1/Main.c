@@ -142,7 +142,7 @@ void harp()
 	{
 		if(INPUT_HARP_0 == 1)
 		{
-			while(INPUT_HARP_0 == 1);
+			while(INPUT_HARP_0 == 1){}
 			
 			for(i = 0 ; i < answerLength-1 ; i++ )
 			{
@@ -155,7 +155,7 @@ void harp()
 
 		if(INPUT_HARP_1 == 1)
 		{
-			while(INPUT_HARP_1 == 1);
+			while(INPUT_HARP_1 == 1){}
 			
 			for(i = 0 ; i < answerLength-1 ; i++ )
 			{
@@ -168,7 +168,7 @@ void harp()
 		
 		if(INPUT_HARP_2 == 1)
 		{
-			while(INPUT_HARP_2 == 1);
+			while(INPUT_HARP_2 == 1){}
 			
 			for(i = 0 ; i < answerLength-1 ; i++ )
 			{
@@ -181,7 +181,7 @@ void harp()
 		
 		if(INPUT_HARP_3 == 1)
 		{
-			while(INPUT_HARP_3 == 1);
+			while(INPUT_HARP_3 == 1){}
 			
 			for(i = 0 ; i < answerLength-1 ; i++ )
 			{
@@ -194,7 +194,7 @@ void harp()
 
 		if(INPUT_HARP_4 == 1)
 		{
-			while(INPUT_HARP_4 == 1);
+			while(INPUT_HARP_4 == 1){}
 			
 			for(i = 0 ; i < answerLength-1 ; i++ )
 			{
@@ -207,7 +207,7 @@ void harp()
 
 		if(INPUT_HARP_5 == 1)
 		{
-			while(INPUT_HARP_5 == 1);
+			while(INPUT_HARP_5 == 1){}
 			
 			for(i = 0 ; i < answerLength-1 ; i++ )
 			{
@@ -219,7 +219,7 @@ void harp()
 
 		if(INPUT_HARP_6 == 1)
 		{
-			while(INPUT_HARP_6 == 1);
+			while(INPUT_HARP_6 == 1){}
 			
 			for(i = 0 ; i < answerLength-1 ; i++ )
 			{
