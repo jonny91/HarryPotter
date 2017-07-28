@@ -80,7 +80,7 @@ void main()
 				break;
 			case 3://µØ ˙«Ÿ		
 				OUTPUT_HARP_SWITCH = 0;
-				delay_ms(1000);
+				delay_ms(3000);
 				harp();
 				break;
 			case 4: //º§π‚”Ô“Ù
@@ -130,7 +130,7 @@ void room1Say()
 
 void harp()
 {
-int answerLength = 10;
+	int answerLength = 10;
 	unsigned int harpStep = 0;
 	int selectHarp = 0;
 	int lastHarp = 0;
