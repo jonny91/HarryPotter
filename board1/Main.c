@@ -143,20 +143,21 @@ void harp()
 		if(INPUT_HARP_0 == 1)
 		{
 			delay_ms(50);
+			
+			playMp3(MUSIC_DO);
 			while(INPUT_HARP_0 == 1){}
 			
 			for(i = 0 ; i < answerLength-1 ; i++ )
 			{
 				myAnswer[i] = myAnswer[i+1];
 			}
-			myAnswer[9] = 1;
-
-			playMp3(MUSIC_DO);
+			myAnswer[9] = 1;			
 		}		
 
 		if(INPUT_HARP_1 == 1)
 		{
 			delay_ms(50);
+			playMp3(MUSIC_RE);
 			while(INPUT_HARP_1 == 1){}
 			
 			for(i = 0 ; i < answerLength-1 ; i++ )
@@ -164,13 +165,12 @@ void harp()
 				myAnswer[i] = myAnswer[i+1];
 			}
 			myAnswer[9] = 2;
-			
-			playMp3(MUSIC_RE);
 		}
 		
 		if(INPUT_HARP_2 == 1)
 		{
 			delay_ms(50);
+			playMp3(MUSIC_MI);
 			while(INPUT_HARP_2 == 1){}
 			
 			for(i = 0 ; i < answerLength-1 ; i++ )
@@ -179,12 +179,13 @@ void harp()
 			}
 			myAnswer[9] = 3;
 
-			playMp3(MUSIC_MI);
+			
 		}
 		
 		if(INPUT_HARP_3 == 1)
 		{
 			delay_ms(50);
+			playMp3(MUSIC_FA);
 			while(INPUT_HARP_3 == 1){}
 			
 			for(i = 0 ; i < answerLength-1 ; i++ )
@@ -192,13 +193,14 @@ void harp()
 				myAnswer[i] = myAnswer[i+1];
 			}
 			myAnswer[9] = 4;
-			playMp3(MUSIC_FA);
+			
 		}
 
 
 		if(INPUT_HARP_4 == 1)
 		{
 			delay_ms(50);
+			playMp3(MUSIC_SO);
 			while(INPUT_HARP_4 == 1){}
 			
 			for(i = 0 ; i < answerLength-1 ; i++ )
@@ -206,13 +208,14 @@ void harp()
 				myAnswer[i] = myAnswer[i+1];
 			}
 			myAnswer[9] = 5;
-			playMp3(MUSIC_SO);
+			
 		}
 
 
 		if(INPUT_HARP_5 == 1)
 		{
 			delay_ms(50);
+			playMp3(MUSIC_LA);
 			while(INPUT_HARP_5 == 1){}
 			
 			for(i = 0 ; i < answerLength-1 ; i++ )
@@ -220,12 +223,13 @@ void harp()
 				myAnswer[i] = myAnswer[i+1];
 			}
 			myAnswer[9] = 6;
-			playMp3(MUSIC_LA);
+			
 		}
 
 		if(INPUT_HARP_6 == 1)
 		{
 			delay_ms(50);
+			playMp3(MUSIC_SI);
 			while(INPUT_HARP_6 == 1){}
 			
 			for(i = 0 ; i < answerLength-1 ; i++ )
@@ -233,7 +237,7 @@ void harp()
 				myAnswer[i] = myAnswer[i+1];
 			}
 			myAnswer[9] = 7;
-			playMp3(MUSIC_SI);
+			
 		}	
         
         for (i = 0; i < answerLength; i++) {
