@@ -130,116 +130,104 @@ void room1Say()
 
 void harp()
 {
-	int answerLength = 10;
+int answerLength = 10;
 	unsigned int harpStep = 0;
 	int selectHarp = 0;
 	int lastHarp = 0;
 	int myAnswer[10] = {0,0,0,0,0,0,0,0,0,0};
 	int isCorrect = 0;
 	int i;
-
-	int lastInput0 = 0;
-	int lastInput1 = 0;
-	int lastInput2 = 0;
-	int lastInput3 = 0;
-	int lastInput4 = 0;
-	int lastInput5 = 0;
-	int lastInput6 = 0;
 	
 	while(1)
 	{
-		if(INPUT_HARP_0 == 0)
+		if(INPUT_HARP_0 == 1)
 		{
-			lastInput0 = 0;
-		}
-		if(INPUT_HARP_1 == 0)
-		{
-			lastInput1 = 0;
-		}
-		if(INPUT_HARP_2 == 0)
-		{
-			lastInput2 = 0;
-		}
-		if(INPUT_HARP_3 == 0)
-		{
-			lastInput3 = 0;
-		}
-		if(INPUT_HARP_4 == 0)
-		{
-			lastInput4 = 0;
-		}
-		if(INPUT_HARP_5 == 0)
-		{
-			lastInput5 = 0;
-		}
-		if(INPUT_HARP_6 == 0)
-		{
-			lastInput6 = 0;
-		}
-		
-		if((lastInput0 == 0) &&(INPUT_HARP_0 == 1))
-		{
-			lastInput0 = 1;
-			selectHarp = 1;
+			while(INPUT_HARP_0 == 1);
+			
+			for(i = 0 ; i < answerLength-1 ; i++ )
+			{
+				myAnswer[i] = myAnswer[i+1];
+			}
+			myAnswer[9] = 1;
+
 			playMp3(MUSIC_DO);
 		}		
 
-		if((lastInput1 == 0)&&(INPUT_HARP_1 == 1))
+		if(INPUT_HARP_1 == 1)
 		{
-			lastInput1 = 1;
-			selectHarp = 2;
+			while(INPUT_HARP_1 == 1);
+			
+			for(i = 0 ; i < answerLength-1 ; i++ )
+			{
+				myAnswer[i] = myAnswer[i+1];
+			}
+			myAnswer[9] = 2;
+			
 			playMp3(MUSIC_RE);
 		}
 		
-		if((lastInput2 == 0)&&(INPUT_HARP_2 == 1))
+		if(INPUT_HARP_2 == 1)
 		{
-			lastInput2 = 1;
-			selectHarp = 3;
+			while(INPUT_HARP_2 == 1);
+			
+			for(i = 0 ; i < answerLength-1 ; i++ )
+			{
+				myAnswer[i] = myAnswer[i+1];
+			}
+			myAnswer[9] = 3;
+
 			playMp3(MUSIC_MI);
 		}
 		
-		if((lastInput3 == 0)&&(INPUT_HARP_3 == 1))
+		if(INPUT_HARP_3 == 1)
 		{
-			lastInput3 = 1;
-			selectHarp = 4;
+			while(INPUT_HARP_3 == 1);
+			
+			for(i = 0 ; i < answerLength-1 ; i++ )
+			{
+				myAnswer[i] = myAnswer[i+1];
+			}
+			myAnswer[9] = 4;
 			playMp3(MUSIC_FA);
 		}
 
 
-		if((lastInput4 == 0)&&(INPUT_HARP_4 == 1))
+		if(INPUT_HARP_4 == 1)
 		{
-			lastInput4 = 1;
-			selectHarp = 5;
+			while(INPUT_HARP_4 == 1);
+			
+			for(i = 0 ; i < answerLength-1 ; i++ )
+			{
+				myAnswer[i] = myAnswer[i+1];
+			}
+			myAnswer[9] = 5;
 			playMp3(MUSIC_SO);
 		}
 
 
-		if((lastInput5 == 0)&&(INPUT_HARP_5 == 1))
+		if(INPUT_HARP_5 == 1)
 		{
-			lastInput5 = 1;
-			selectHarp = 6;
-			playMp3(MUSIC_LA);
-		}
-
-
-		if((lastInput6 == 0)&&(INPUT_HARP_6 == 1))
-		{
-			lastInput6 = 1;
-			selectHarp = 7;
-			playMp3(MUSIC_SI);
-		}
-	
-
-		if(selectHarp != 0)
-		{
-            for(i = 0 ; i < answerLength-1 ; i++ )
+			while(INPUT_HARP_5 == 1);
+			
+			for(i = 0 ; i < answerLength-1 ; i++ )
 			{
 				myAnswer[i] = myAnswer[i+1];
 			}
-			myAnswer[9] = selectHarp;
-			lastHarp = selectHarp;
-			selectHarp = 0;
-        }
+			myAnswer[9] = 6;
+			playMp3(MUSIC_LA);
+		}
+
+		if(INPUT_HARP_6 == 1)
+		{
+			while(INPUT_HARP_6 == 1);
+			
+			for(i = 0 ; i < answerLength-1 ; i++ )
+			{
+				myAnswer[i] = myAnswer[i+1];
+			}
+			myAnswer[9] = 7;
+			playMp3(MUSIC_SI);
+		}	
         
         for (i = 0; i < answerLength; i++) {
             if(HARP_ANSWER[i] == myAnswer[i])
@@ -257,15 +245,15 @@ void harp()
 		
 		if(isCorrect == 1)
 		{
-			//全部正确
-            playMp3(MUSIC_HARP_CORRECT);
-            setStep(4);
-            //断电开门
-            OUTPUT_DOOR_34 = 0;
-            //打开柜门
-            OUTPUT_DOOR_37 = 0;
+			//全部争正确
+      playMp3(MUSIC_HARP_CORRECT);
+      setStep(4);
+      //断电开门
+      OUTPUT_DOOR_34 = 0;
+      //打开柜门
+      OUTPUT_DOOR_37 = 0;
 
-            return;
+      return;
 		}
 	}
 }
