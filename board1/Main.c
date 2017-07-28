@@ -54,7 +54,7 @@ void init()
 	INPUT_ROOM_1_SAY = 0;
 	OUTPUT_ROOM2_DOOR = 1;
 	
-	OUTPUT_SIG_BOARD2 = 0;
+	OUTPUT_SIG_BOARD2 = 1;
 	OUTPUT_HARP_SWITCH = 1;
 }
 void main()
@@ -266,7 +266,7 @@ void laser_and_say()
 		{
 			OUTPUT_DOOR_35 = 0;
 			playMp3(MUSIC_LASER_SAY_CORRECT);
-			OUTPUT_SIG_BOARD2 = 1;//下一块板子信号
+			OUTPUT_SIG_BOARD2 = 0;//下一块板子信号
 			setStep(5);
 			return;
 		}
