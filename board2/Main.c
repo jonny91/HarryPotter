@@ -13,7 +13,7 @@ void stone();
 void check();
 
 sbit INPUT_FROM_BOARD_1 = P0^0; // 第一块板子的信号
-sbit INPUT_00 = P0^1; //手牵手的输入
+sbit INPUT_01 = P0^1; //手牵手的输入
 sbit OUTPUT_02 = P0^2;//手牵手正确之后输出 棋盘的射灯亮
 
 
@@ -88,9 +88,9 @@ void initChessLight()
 
 void init()
 {
-    INPUT_FROM_BOARD_1 = 0;
+  INPUT_FROM_BOARD_1 = 0;
     
-	INPUT_00 = 0;
+	INPUT_01 = 0;
 	OUTPUT_02 = 1;
 	
 	chess_0 = 0;
@@ -117,9 +117,11 @@ void main()
 	//定时器暂停
 	ET0 = 0;
 	delay_ms(5000);
+	step = 0;
+	
+	//通电测试
 	playMp3(MUSIC_INDOOR);
 	
-	step = 1;
 	while(1)
 	{
 		switch(step)
@@ -152,16 +154,21 @@ void check()
 {
     if(INPUT_FROM_BOARD_1 == 1)
     {
-        setStep(1);
+				delay_ms(50);
+				if(INPUT_FROM_BOARD_1 == 1)
+				{		
+					playMp3(MUSIC_INDOOR);
+					setStep(1);
+				}
     }
 }
 
 void handInHand()
 {
-	if(INPUT_00 == 1)
+	if(INPUT_01 == 1)
 	{
 		delay_ms(500);
-		if(INPUT_00 == 1)
+		if(INPUT_01 == 1)
 		{
 			OUTPUT_02 = 0;
 			playMp3(MUSIC_HANDINHAND_CORRECT);
