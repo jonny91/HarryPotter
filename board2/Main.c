@@ -155,7 +155,7 @@ void check()
 				delay_ms(50);
 				if(INPUT_FROM_BOARD_1 == 1)
 				{	
-					playFloderMp3(0,MUSIC_INDOOR);			
+					play_mp3(0,0x01);			
 					//playMp3(MUSIC_INDOOR);
 					setStep(1);
 				}
@@ -170,7 +170,7 @@ void handInHand()
 		if(INPUT_01 == 1)
 		{
 			OUTPUT_02 = 0;
-			playMp3(MUSIC_HANDINHAND_CORRECT);
+			play_mp3(0,MUSIC_HANDINHAND_CORRECT);
 			setStep(2);
 		}
 	}
@@ -180,7 +180,7 @@ void stone()
 {
 	if(INPUT_STONE == 1)
 	{
-		playMp3(MUSIC_GET_STONE);
+		play_mp3(0,MUSIC_GET_STONE);
 		OUTPUT_LAST_DOOR = 0;
 		setStep(6);
 	}
@@ -208,7 +208,7 @@ void medicine()
 		{
 			setStep(4);
 
-			playMp3(MUSIC_MEDICINE_CORRECT);
+			play_mp3(0,MUSIC_MEDICINE_CORRECT);
 		}
 	}
 }
@@ -360,7 +360,7 @@ void chess()
 				{
 					setStep(3);
 					ET0 = 0;
-					playMp3(MUSIC_CHESS);
+					play_mp3(0,MUSIC_CHESS);
 					
 					//开第四个房间的门
 					OUTPUT_ROOM4 = 0;
