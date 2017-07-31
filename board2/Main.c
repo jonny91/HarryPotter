@@ -260,32 +260,32 @@ void chessPlay()
 
 void chessPressLight()
 {
-	if(chess_0 == 1){chess_light_0 = 1;}
-	if(chess_0 == 0){chess_light_0 = 0;}
+	if(chess_0 == 1){chess_light_0 = 0;}
+	if(chess_0 == 0){chess_light_0 = 1;}
 		
-	if(chess_1 == 1){chess_light_1 = 1;}
-	if(chess_1 == 0){chess_light_1 = 0;}
+	if(chess_1 == 1){chess_light_1 = 0;}
+	if(chess_1 == 0){chess_light_1 = 1;}
 		
-	if(chess_2 == 1){chess_light_2 = 1;}
-	if(chess_2 == 0){chess_light_2 = 0;}
+	if(chess_2 == 1){chess_light_2 = 0;}
+	if(chess_2 == 0){chess_light_2 = 1;}
 	
-	if(chess_3 == 1){chess_light_3 = 1;}
-	if(chess_3 == 0){chess_light_3 = 0;}
+	if(chess_3 == 1){chess_light_3 = 0;}
+	if(chess_3 == 0){chess_light_3 = 1;}
 		
-	if(chess_4 == 1){chess_light_4 = 1;}
-	if(chess_4 == 0){chess_light_4 = 0;}
+	if(chess_4 == 1){chess_light_4 = 0;}
+	if(chess_4 == 0){chess_light_4 = 1;}
 		
-	if(chess_5 == 1){chess_light_5 = 1;}
-	if(chess_5 == 0){chess_light_5 = 0;}
+	if(chess_5 == 1){chess_light_5 = 0;}
+	if(chess_5 == 0){chess_light_5 = 1;}
 		
-	if(chess_6 == 1){chess_light_6 = 1;}
-	if(chess_6 == 0){chess_light_6 = 0;}
+	if(chess_6 == 1){chess_light_6 = 0;}
+	if(chess_6 == 0){chess_light_6 = 1;}
 
-	if(chess_7 == 1){chess_light_7 = 1;}
-	if(chess_7 == 0){chess_light_7 = 0;}
+	if(chess_7 == 1){chess_light_7 = 0;}
+	if(chess_7 == 0){chess_light_7 = 1;}
 		
-	if(chess_8 == 1){chess_light_8 = 1;}
-	if(chess_8 == 0){chess_light_8 = 0;}
+	if(chess_8 == 1){chess_light_8 = 0;}
+	if(chess_8 == 0){chess_light_8 = 1;}
 }
 
 int isNeedPlay = 1; //是否需要演示
