@@ -1,3 +1,4 @@
+void mp3(unsigned char comd);
 /*********************************************************/
 /*                                                       */
 /* MP3操作指令                                           */
@@ -11,6 +12,17 @@ void playMp3(int musicId)
 		send(0X00);//定位到名称为“01”的文件夹
 		send(musicId);//播放第1个音频文件
 		send(0XEF);//指令结束位 
+}
+
+void playFloderMp3(unsigned int floder , unsigned int music)
+{
+	mp3(0x33);
+	send(0X7E);//?????
+	send(0x04);
+ 	send(0X41);//???????
+  send(floder);//????????????
+  send(music);//???music?????
+	send(0XEF);//?????
 }
 
 void mp3(unsigned char comd)

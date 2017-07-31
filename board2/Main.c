@@ -113,14 +113,12 @@ void main()
 	init();
 	uart_init();
 	mp3_init();
-	timer0();
+	//timer0();
 	//定时器暂停
-	ET0 = 0;
+	//ET0 = 0;
 	delay_ms(5000);
 	step = 0;
-	
-	//通电测试
-	playMp3(MUSIC_INDOOR);
+
 	
 	while(1)
 	{
@@ -156,8 +154,9 @@ void check()
     {
 				delay_ms(50);
 				if(INPUT_FROM_BOARD_1 == 1)
-				{		
-					playMp3(MUSIC_INDOOR);
+				{	
+					playFloderMp3(0,MUSIC_INDOOR);			
+					//playMp3(MUSIC_INDOOR);
 					setStep(1);
 				}
     }
