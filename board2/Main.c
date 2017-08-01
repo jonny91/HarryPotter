@@ -206,9 +206,9 @@ void medicine()
 		delay_ms(50);
 		if((INPUT_MEDICINE_1 == 1) && (INPUT_MEDICINE_2 == 1))
 		{
-			setStep(4);
-
 			play_mp3(0,MUSIC_MEDICINE_CORRECT);
+			delay_ms(500);
+			setStep(4);
 		}
 	}
 }

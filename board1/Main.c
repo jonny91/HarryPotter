@@ -105,13 +105,14 @@ void start()
 
 void fiveStatue()
 {
-	if(INPUT_FIVE_STATUE == 1)
+	if(INPUT_FIVE_STATUE == 1)//P01
 	{
 		delay_ms(500);
 		if(INPUT_FIVE_STATUE == 1)
 		{
 			playMp3(FIVE_STATUE_CORRECT);
-			OUTPUT_FIVE_STATUE_DOOR = 0;
+			OUTPUT_FIVE_STATUE_DOOR = 0;//P02
+			delay_ms(500);
 			setStep(2);	
 		}
 	}
@@ -119,12 +120,15 @@ void fiveStatue()
 
 void room1Say()
 {
-	if(INPUT_ROOM_1_SAY == 1)
+	if(INPUT_ROOM_1_SAY == 1)//P0^3
 	{		
-		playMp3(ROOM_1_SAY_CORRECT);
-		OUTPUT_ROOM2_DOOR = 0;
-		setStep(3);	
-	
+		delay¡ª_ms(50);
+		if(INPUT_ROOM_1_SAY == 1)
+		{
+			playMp3(ROOM_1_SAY_CORRECT);//P0^2
+			OUTPUT_ROOM2_DOOR = 0;
+			setStep(3);	
+		}
 	}
 }
 
@@ -263,7 +267,8 @@ void harp()
       OUTPUT_DOOR_34 = 0;
       //´ò¿ª¹ñÃÅ
       OUTPUT_DOOR_37 = 0;
-
+	
+			delay_ms(500);
       return;
 		}
 	}
