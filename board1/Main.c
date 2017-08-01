@@ -273,10 +273,14 @@ void laser_and_say()
 {
 		if(INPUT_LASER_06 == 1)
 		{
-			OUTPUT_DOOR_35 = 0;
-			//playMp3(MUSIC_LASER_SAY_CORRECT);
-			OUTPUT_SIG_BOARD2 = 0;//下一块板子信号
-			setStep(5);
-			return;
+			delay_ms(50);
+			if(INPUT_LASER_06 == 1)
+			{
+				OUTPUT_DOOR_35 = 0;
+				//playMp3(MUSIC_LASER_SAY_CORRECT);
+				OUTPUT_SIG_BOARD2 = 0;//下一块板子信号
+				setStep(5);
+				return;
+			}		
 		}
 }
