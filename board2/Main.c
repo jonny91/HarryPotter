@@ -405,8 +405,6 @@ void Timer_Routine(void) interrupt 1
         chessStep = 0;
 			initChessLight();
 			isNeedPlay = 1;
-			
-			play_mp3(0,1);
     }
 }
 
