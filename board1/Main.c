@@ -122,7 +122,7 @@ void room1Say()
 {
 	if(INPUT_ROOM_1_SAY == 1)//P0^3
 	{		
-		delay¡ª_ms(50);
+		delay_ms(50);
 		if(INPUT_ROOM_1_SAY == 1)
 		{
 			playMp3(ROOM_1_SAY_CORRECT);//P0^2

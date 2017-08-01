@@ -4,6 +4,17 @@
 #include "uart.h"
 #include "mp3.h"
 
+typedef unsigned char BYTE;
+typedef unsigned int WORD;
+#define FOSC 11059200L
+#define MODE1T                      //Timer clock mode, comment this line is 12T mode, uncomment is 1T mode
+
+#ifdef MODE1T
+#define T1MS (65536-FOSC/1000)      //1ms timer calculation method in 1T mode
+#else
+#define T1MS (65536-FOSC/12/1000)   //1ms timer calculation method in 12T mode
+#endif
+
 void handInHand();
 void chess();
 void timer0();
@@ -60,7 +71,7 @@ sbit INPUT_STONE = P3^3;
 //最后的门
 sbit OUTPUT_LAST_DOOR = P3^4;
 
-int i = 0;
+int count = 0;
 int chessStep = 0;
 
 //初始化象棋的接口 
@@ -113,13 +124,12 @@ void main()
 	init();
 	uart_init();
 	mp3_init();
-	//timer0();
+	timer0();
 	//定时器暂停
-	//ET0 = 0;
+	ET0 = 0;
 	delay_ms(5000);
 	step = 0;
 
-	
 	while(1)
 	{
 		switch(step)
@@ -255,7 +265,7 @@ void chessPlay()
 	delay_ms(500);
 	
 	ET0 = 1;
-	i = CHESS_TIME;		
+	count = CHESS_TIME;		
 }
 
 void chessPressLight()
@@ -310,7 +320,7 @@ void chess()
 				if((chess_0 == 1)&&(chess_1 == 1))
 				{
 					chessStep = 1;
-					i = CHESS_TIME;	
+					count = CHESS_TIME;	
 					
 					play_mp3(0,MUSIC_CHESS_0);
 				}
@@ -319,7 +329,7 @@ void chess()
 				if((chess_0 == 0)&&(chess_1 == 1)&&(chess_2 == 1))
 				{
 					chessStep = 2;
-					i = CHESS_TIME;	
+					count = CHESS_TIME;	
 					
 					play_mp3(0,MUSIC_CHESS_1);
 				}
@@ -328,7 +338,7 @@ void chess()
 				if((chess_2 == 0)&&(chess_1 == 1)&&(chess_3 == 1))
 				{
 					chessStep = 3;
-					i = CHESS_TIME;	
+					count = CHESS_TIME;	
 					
 					play_mp3(0,MUSIC_CHESS_2);
 				}
@@ -337,7 +347,7 @@ void chess()
 				if((chess_1 == 0)&&(chess_3 == 1)&&(chess_4 == 1))
 				{
 					chessStep = 4;
-					i = CHESS_TIME;	
+					count = CHESS_TIME;	
 					
 					play_mp3(0,MUSIC_CHESS_3);
 				}
@@ -346,7 +356,7 @@ void chess()
 				if((chess_3 == 0)&&(chess_4 == 1)&&(chess_5 == 1))
 				{
 					chessStep = 5;
-					i = CHESS_TIME;	
+					count = CHESS_TIME;	
 					
 					play_mp3(0,MUSIC_CHESS_4);
 				}
@@ -355,7 +365,7 @@ void chess()
 				if((chess_4 == 0)&&(chess_5 == 1)&&(chess_6 == 1))
 				{
 					chessStep = 6;
-					i = CHESS_TIME;	
+					count = CHESS_TIME;	
 					
 					play_mp3(0,MUSIC_CHESS_5);
 				}
@@ -364,7 +374,7 @@ void chess()
 				if((chess_5 == 0)&&(chess_6 == 1)&&(chess_7 == 1))
 				{
 					chessStep = 7;
-					i = CHESS_TIME;	
+					count = CHESS_TIME;	
 					
 					play_mp3(0,MUSIC_CHESS_6);
 				}
@@ -386,32 +396,34 @@ void chess()
 }
 
 void Timer_Routine(void) interrupt 1
-{
-	TL0 = 0x00;		//设置定时初值
-	TH0 = 0x4C;		//设置定时初值
-
-    i--;
-
-    if(i == 0)
-	{
-		i = CHESS_TIME;		
-		chessStep = 0;
-		initChessLight();
-		isNeedPlay = 1;
-    }        
+{	
+		TL0 = T1MS;                     //reload timer0 low byte
+    TH0 = T1MS >> 8;                //reload timer0 high byte
+    if (count-- == 0)               //1ms * 1000 -> 1s
+    {
+        count = CHESS_TIME;               //reset counter
+        chessStep = 0;
+			initChessLight();
+			isNeedPlay = 1;
+			
+			play_mp3(0,1);
+    }
 }
 
 
 void timer0()
 {
 	//10秒
-    i = CHESS_TIME;	
+    count = CHESS_TIME;	
 
-	TMOD = 0x01; //16位定时器
-	TL0 = 0x00;		//设置定时初值
-	TH0 = 0x4C;		//设置定时初值
-	ET0 = 1; //允许T0中断
-    EA  = 1; //开放中断
-    TR0 = 1;
+#ifdef MODE1T
+    AUXR = 0x80;                    //timer0 work in 1T mode
+#endif
+    TMOD |= 0x01;                    //set timer0 as mode1 (16-bit)
+    TL0 = T1MS;                     //initial timer0 low byte
+    TH0 = T1MS >> 8;                //initial timer0 high byte
+    TR0 = 1;                        //timer0 start running
+    ET0 = 1;                        //enable timer0 interrupt
+    EA = 1;                         //open global interrupt switch
 
 }
