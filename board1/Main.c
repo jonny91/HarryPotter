@@ -107,7 +107,7 @@ void fiveStatue()
 {
 	if(INPUT_FIVE_STATUE == 1)
 	{
-		delay_ms(500);
+		delay_ms(3000);
 		if(INPUT_FIVE_STATUE == 1)
 		{
 			playMp3(FIVE_STATUE_CORRECT);
