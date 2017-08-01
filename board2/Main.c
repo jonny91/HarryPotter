@@ -311,6 +311,8 @@ void chess()
 				{
 					chessStep = 1;
 					i = CHESS_TIME;	
+					
+					play_mp3(0,MUSIC_CHESS_0);
 				}
 				break;
 			case 1://7f灭 8e亮 1亮
@@ -318,6 +320,8 @@ void chess()
 				{
 					chessStep = 2;
 					i = CHESS_TIME;	
+					
+					play_mp3(0,MUSIC_CHESS_1);
 				}
 				break;
 			case 2://1灭 8e亮 2亮
@@ -325,6 +329,8 @@ void chess()
 				{
 					chessStep = 3;
 					i = CHESS_TIME;	
+					
+					play_mp3(0,MUSIC_CHESS_2);
 				}
 				break;
 			case 3://8e灭 2亮 3亮
@@ -332,6 +338,8 @@ void chess()
 				{
 					chessStep = 4;
 					i = CHESS_TIME;	
+					
+					play_mp3(0,MUSIC_CHESS_3);
 				}
 				break;
 			case 4://2灭 3亮 4亮
@@ -339,6 +347,8 @@ void chess()
 				{
 					chessStep = 5;
 					i = CHESS_TIME;	
+					
+					play_mp3(0,MUSIC_CHESS_4);
 				}
 				break;
 			case 5://3灭 4亮 5亮
@@ -346,6 +356,8 @@ void chess()
 				{
 					chessStep = 6;
 					i = CHESS_TIME;	
+					
+					play_mp3(0,MUSIC_CHESS_5);
 				}
 				break;
 			case 6://4灭 5亮 6亮
@@ -353,6 +365,8 @@ void chess()
 				{
 					chessStep = 7;
 					i = CHESS_TIME;	
+					
+					play_mp3(0,MUSIC_CHESS_6);
 				}
 				break;
 			case 7://5灭 6亮 7亮
@@ -360,7 +374,7 @@ void chess()
 				{
 					setStep(3);
 					ET0 = 0;
-					play_mp3(0,MUSIC_CHESS);
+					play_mp3(0,MUSIC_CHESS_CORRECT);
 					
 					//开第四个房间的门
 					OUTPUT_ROOM4 = 0;
