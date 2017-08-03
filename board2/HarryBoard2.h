@@ -16,4 +16,4 @@ code int MUSIC_GET_STONE = 0X0c;
 
 code int MUSIC_CHESS_TIME_OUT = 0x0d;
 
-code int CHESS_TIME = 200;
+code int CHESS_TIME = 10000;
