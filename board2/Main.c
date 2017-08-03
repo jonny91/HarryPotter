@@ -264,7 +264,6 @@ void chessPlay()
 	chess_light_8 = 1; //熄灭67
 	delay_ms(500);
 	
-	ET0 = 1;
 	count = CHESS_TIME;		
 }
 
@@ -324,7 +323,7 @@ void chess()
 					{
 						chessStep = 1;
 						count = CHESS_TIME;	
-							
+						ET0 = 1;
 						play_mp3(0,MUSIC_CHESS_0);
 					}
 					break;
