@@ -405,8 +405,9 @@ void Timer_Routine(void) interrupt 1
     TH0 = T1MS >> 8;                //reload timer0 high byte
     if (count-- == 0)               //1ms * 1000 -> 1s
     {
-        count = CHESS_TIME;               //reset counter
-        chessStep = 0;
+      count = CHESS_TIME;               //reset counter
+			play_mp3(0,MUSIC_CHESS_TIME_OUT);
+      chessStep = 0;
 			initChessLight();
 			isNeedPlay = 1;
     }
