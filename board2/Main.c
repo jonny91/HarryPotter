@@ -409,6 +409,7 @@ void Timer_Routine(void) interrupt 1
       chessStep = 0;
 			initChessLight();
 			isNeedPlay = 1;
+			ET= 0;
     }
 }
 
