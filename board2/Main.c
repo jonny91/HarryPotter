@@ -308,18 +308,20 @@ void chess()
 		{
 			chessPlay();
 			isNeedPlay = 0;//演示过了
-		}
-		
-		//踩下亮对应的灯泡
-		chessPressLight();			
+		}		
 		
 		//演示过了之后判断踩地灯
 		if(isNeedPlay == 0)
 		{
+			//踩下亮对应的灯泡
+			chessPressLight();	
+		
 			switch(chessStep)
 			{
 				case 0: //7f+8e
-					if((chess_0 == 1)&&(chess_1 == 1))
+					if((chess_0 == 1)&&(chess_1 == 1)&&(chess_2 == 0)
+						&&(chess_3 == 0)&&(chess_4 == 0)&&(chess_5 == 0)
+					&&(chess_6 == 0)&&(chess_7 == 0)&&(chess_8 == 0))
 					{
 						chessStep = 1;
 						count = CHESS_TIME;	
@@ -328,7 +330,9 @@ void chess()
 					}
 					break;
 				case 1://7f灭 8e亮 1亮
-					if((chess_0 == 0)&&(chess_1 == 1)&&(chess_2 == 1))
+					if((chess_0 == 0)&&(chess_1 == 1)&&(chess_2 == 1)
+						&&(chess_3 == 0)&&(chess_4 == 0)&&(chess_5 == 0)
+					&&(chess_6 == 0)&&(chess_7 == 0)&&(chess_8 == 0))
 					{
 						chessStep = 2;
 						count = CHESS_TIME;	
@@ -337,7 +341,9 @@ void chess()
 					}
 					break;
 				case 2://1灭 8e亮 2亮
-					if((chess_2 == 0)&&(chess_1 == 1)&&(chess_3 == 1))
+					if((chess_2 == 0)&&(chess_1 == 1)&&(chess_3 == 1)
+						&&(chess_0 == 0)&&(chess_4 == 0)&&(chess_5 == 0)
+					&&(chess_6 == 0)&&(chess_7 == 0)&&(chess_8 == 0))
 					{
 						chessStep = 3;
 						count = CHESS_TIME;	
@@ -346,7 +352,9 @@ void chess()
 					}
 					break;
 				case 3://8e灭 2亮 3亮
-					if((chess_1 == 0)&&(chess_3 == 1)&&(chess_4 == 1))
+					if((chess_1 == 0)&&(chess_3 == 1)&&(chess_4 == 1)
+						&&(chess_0 == 0)&&(chess_2 == 0)&&(chess_5 == 0)
+					&&(chess_6 == 0)&&(chess_7 == 0)&&(chess_8 == 0))
 					{
 						chessStep = 4;
 						count = CHESS_TIME;	
@@ -355,7 +363,9 @@ void chess()
 					}
 					break;
 				case 4://2灭 3亮 4亮
-					if((chess_3 == 0)&&(chess_4 == 1)&&(chess_5 == 1))
+					if((chess_3 == 0)&&(chess_4 == 1)&&(chess_5 == 1)
+						&&(chess_0 == 0)&&(chess_1 == 0)&&(chess_2 == 0)
+					&&(chess_6 == 0)&&(chess_7 == 0)&&(chess_8 == 0))
 					{
 						chessStep = 5;
 						count = CHESS_TIME;	
@@ -364,7 +374,9 @@ void chess()
 					}
 					break;
 				case 5://3灭 4亮 5亮
-					if((chess_4 == 0)&&(chess_5 == 1)&&(chess_6 == 1))
+					if((chess_4 == 0)&&(chess_5 == 1)&&(chess_6 == 1)
+						&&(chess_0 == 0)&&(chess_1 == 0)&&(chess_2 == 0)
+					&&(chess_3 == 0)&&(chess_7 == 0)&&(chess_8 == 0))
 					{
 						chessStep = 6;
 						count = CHESS_TIME;	
@@ -373,7 +385,9 @@ void chess()
 					}
 					break;
 				case 6://4灭 5亮 6亮
-					if((chess_5 == 0)&&(chess_6 == 1)&&(chess_7 == 1))
+					if((chess_5 == 0)&&(chess_6 == 1)&&(chess_7 == 1)
+						&&(chess_0 == 0)&&(chess_1 == 0)&&(chess_2 == 0)
+					&&(chess_3 == 0)&&(chess_4 == 0)&&(chess_8 == 0))
 					{
 						chessStep = 7;
 						count = CHESS_TIME;	
@@ -382,8 +396,19 @@ void chess()
 					}
 					break;
 				case 7://5灭 6亮 7亮
-					if((chess_6 == 0)&&(chess_7 == 1)&&(chess_8 == 1))
+					if((chess_6 == 0)&&(chess_7 == 1)&&(chess_8 == 1)
+						&&(chess_0 == 0)&&(chess_1 == 0)&&(chess_2 == 0)
+					&&(chess_3 == 0)&&(chess_4 == 0)&&(chess_5 == 0))
 					{
+						chess_light_1 = 0;
+						chess_light_2 = 0;
+						chess_light_3 = 0;
+						chess_light_4 = 0;
+						chess_light_5 = 0;
+						chess_light_6 = 0;
+						chess_light_7 = 0;
+						chess_light_0 = 0;
+						
 						setStep(3);
 						ET0 = 0;
 						play_mp3(0,MUSIC_CHESS_CORRECT);
@@ -409,7 +434,7 @@ void Timer_Routine(void) interrupt 1
       chessStep = 0;
 			initChessLight();
 			isNeedPlay = 1;
-			ET= 0;
+			ET0 = 0;
     }
 }
 
