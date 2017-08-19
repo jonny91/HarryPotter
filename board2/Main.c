@@ -78,6 +78,8 @@ int chessStep = 0;
 //7f 8e不在里面初始化
 void initChessLight()
 {
+	chess_0 = 0;
+	chess_1 = 0;
 	chess_2 = 0;
 	chess_3 = 0;
 	chess_4 = 0;
@@ -262,7 +264,7 @@ void chessPlay()
 	
 	chess_light_7 = 1;
 	chess_light_8 = 1; //熄灭67
-	delay_ms(500);
+	delay_ms(1000);
 	
 	count = CHESS_TIME;		
 }
@@ -308,6 +310,17 @@ void chess()
 		{
 			chessPlay();
 			isNeedPlay = 0;//演示过了
+			chess_0 = 0;
+			chess_1 = 0;
+			chess_2 = 0;
+			chess_3 = 0;
+			chess_4 = 0;
+			chess_5 = 0;
+			chess_6 = 0;
+			chess_7 = 0;
+			chess_8 = 0;
+			chessStep = 0;
+			delay_ms(1000);
 		}		
 		
 		//演示过了之后判断踩地灯
