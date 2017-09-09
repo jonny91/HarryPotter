@@ -140,10 +140,10 @@ void main()
 				check();
 				break;
 			case 1:
-				chess();				
+				handInHand();
 				break;
 			case 2:
-				handInHand();
+				chess();
 				break;
 			case 3:
 				medicine();
@@ -183,7 +183,7 @@ void handInHand()
 		{
 			OUTPUT_02 = 0;
 			play_mp3(0,MUSIC_HANDINHAND_CORRECT);
-			setStep(3);
+			setStep(2);
 		}
 	}
 }
